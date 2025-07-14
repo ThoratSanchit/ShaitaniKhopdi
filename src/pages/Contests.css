@@ -1,0 +1,200 @@
+/* Contests Page Styles */
+.contests-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Header Styles */
+.contest-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contest-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #00ff99, #00ccff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.contest-subtitle {
+  color: #9CA3AF;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Tab Styles */
+.contest-tabs {
+  display: flex;
+  border-bottom: 1px solid #2D3748;
+  margin-bottom: 2rem;
+}
+
+.contest-tab {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  color: #A0AEC0;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.contest-tab:hover {
+  color: #E2E8F0;
+}
+
+.contest-tab.active {
+  color: #00ff99;
+}
+
+.contest-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff99, #00ccff);
+}
+
+.badge {
+  background: #2D3748;
+  color: #E2E8F0;
+  border-radius: 9999px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Contest Grid Styles */
+.contest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Empty State Styles */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #1A202C;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.empty-state svg {
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  color: #E2E8F0;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: #A0AEC0;
+  margin-bottom: 1.5rem;
+}
+
+.subscribe-btn {
+  background: linear-gradient(90deg, #00ff99, #00ccff);
+  color: #1A202C;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.subscribe-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Pagination Styles */
+.contest-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.pagination-btn {
+  background: #2D3748;
+  border: none;
+  color: #E2E8F0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination-btn:hover {
+  background: #4A5568;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.page-numbers span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  color: #A0AEC0;
+  font-weight: 600;
+}
+
+.page-numbers span.active {
+  color: #00ff99;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .contest-title {
+    font-size: 2rem;
+  }
+  
+  .contest-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contest-tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contest-tabs {
+    justify-content: center;
+  }
+  
+  .contest-title {
+    font-size: 1.75rem;
+  }
+  
+  .contest-subtitle {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,88 @@
+.contest-card {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid #333;
+}
+
+.contest-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 255, 153, 0.2);
+  border-color: #00ff99;
+}
+
+.contest-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.contest-header h3 {
+  margin: 0;
+  color: #00ff99;
+}
+
+.prize {
+  background-color: #333;
+  color: #ffcc00;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.description {
+  color: #bbb;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.contest-meta {
+  display: flex;
+  gap: 15px;
+  color: #777;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+}
+
+.countdown {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.timer {
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.time {
+  color: #00ff99;
+  font-weight: bold;
+}
+
+.contest-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.register-btn {
+  flex: 2;
+  padding: 8px;
+}
+
+.outline-btn {
+  flex: 1;
+  padding: 8px;
+  background-color: transparent;
+  border: 1px solid #00ff99;
+  color: #00ff99;
+}
+
+.outline-btn:hover {
+  background-color: rgba(0, 255, 153, 0.1);
+}
