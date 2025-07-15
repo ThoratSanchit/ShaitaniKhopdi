@@ -23,7 +23,9 @@ const Home = () => {
             coding contests, and stay updated with the latest tech news and cybersecurity trends.
           </p>
           <div className="home-hero-buttons">
-            <button className="home-primary-btn">Join Community</button>
+            <a href="https://discord.gg/jAYFqV8E" target="_blank" rel="noopener noreferrer">
+              <button className="home-primary-btn">Join Community</button>
+            </a>
             <button className="home-secondary-btn">Learn More</button>
           </div>
         </div>
