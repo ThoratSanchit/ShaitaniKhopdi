@@ -1,84 +1,165 @@
-const aiTools = [
+const aiTools =[
   {
     "id": 1,
-    "name": "ChatGPT-4o",
-    "description": "OpenAI's flagship multimodal AI assistant with advanced reasoning, web search, and real-time voice/image analysis.",
-    "tags": ["LLM", "Productivity", "Coding"],
-    "icon": "🤖",
-    "link": "https://openai.com/chatgpt"
+    "name": "Grok 4",
+    "description": "Elon Musk’s xAI multimodal LLM with image, video, voice, and reasoning capabilities—touted as ‘smartest AI in the world’",
+    "tags": ["LLM","Multimodal","Voice"],
+    "icon": "🧠",
+    "link": "https://www.axios.com/2025/07/10/grok4-grok-xai-elon-musk"
   },
   {
     "id": 2,
-    "name": "Gemini 2.5",
-    "description": "Google's AI with 1M+ token context, integrated across Workspace and supporting audio summaries.",
-    "tags": ["LLM", "Search", "Multimodal"],
-    "icon": "🔍",
-    "link": "https://gemini.google.com"
+    "name": "Grok for Government",
+    "description": "xAI’s government-focused AI suite (Grok, Deep Search, Tool Use) under a $200M DoD contract",
+    "tags": ["LLM","GovTech","Agents"],
+    "icon": "🏛️",
+    "link": "https://www.theguardian.com/technology/2025/jul/14/us-military-xai-deal-elon-musk"
   },
   {
     "id": 3,
-    "name": "Claude 3.5",
-    "description": "Anthropic's safest AI model, excelling in coding (Haiku/Sonnet/Opus tiers) and collaborative problem-solving.",
-    "tags": ["LLM", "Coding", "Writing"],
-    "icon": "📝",
-    "link": "https://claude.ai"
+    "name": "Claude 4 (Opus/Sonnet)",
+    "description": "Anthropic’s Opus and Sonnet multimodal LLMs designed for hybrid reasoning and coding tasks",
+    "tags": ["LLM","Coding","Research"],
+    "icon": "🧮",
+    "link": "https://en.wikipedia.org/wiki/Claude_%28language_model%29"
   },
   {
     "id": 4,
-    "name": "Midjourney V7",
-    "description": "Industry-leading AI image generator with painterly aesthetics and video support.",
-    "tags": ["Image Generation", "Design"],
-    "icon": "🎨",
-    "link": "https://midjourney.com"
+    "name": "Perplexity AI",
+    "description": "AI search assistant with cited summaries and enterprise file + web search",
+    "tags": ["AI Search","Research","Writing"],
+    "icon": "🔍",
+    "link": "https://en.wikipedia.org/wiki/Perplexity_AI"
   },
   {
     "id": 5,
-    "name": "Synthesia",
-    "description": "Create AI avatar videos in 140+ languages with 230+ digital avatars for training and marketing.",
-    "tags": ["Video", "Avatars"],
-    "icon": "🎥",
-    "link": "https://synthesia.io"
+    "name": "Mistral Medium 3",
+    "description": "Open‑API LLM with performance rivaling Claude Sonnet, available through major clouds",
+    "tags": ["LLM","Open-Source","Coding"],
+    "icon": "📘",
+    "link": "https://en.wikipedia.org/wiki/Mistral_AI"
   },
   {
     "id": 6,
-    "name": "GitHub Copilot",
-    "description": "AI pair programmer for real-time code suggestions across 20+ languages (now with agentic workflows).",
-    "tags": ["Coding", "Developer Tools"],
-    "icon": "💻",
-    "link": "https://github.com/features/copilot"
+    "name": "ComputerX",
+    "description": "Desktop AI agent operating across apps—automates computer tasks as your personal AI operator",
+    "tags": ["AI Agent","Productivity","Desktop"],
+    "icon": "🖥️",
+    "link": "https://computerx.ai/"
   },
   {
     "id": 7,
-    "name": "Perplexity",
-    "description": "AI search engine with cited sources, combining Google/Bing data for accurate answers.",
-    "tags": ["AI Search", "Research"],
-    "icon": "🔎",
-    "link": "https://perplexity.ai"
+    "name": "Runner H",
+    "description": "Agentic AI for orchestrating multi-step workflows across apps (Slack, Notion, Sheets, APIs)",
+    "tags": ["AI Agent","Automation","App Integration"],
+    "icon": "🤖",
+    "link": "https://www.hcompany.ai/runner-h"
   },
   {
     "id": 8,
-    "name": "Fathom",
-    "description": "AI meeting assistant that records, transcribes, and summarizes Zoom/Teams calls automatically.",
-    "tags": ["Productivity", "Meetings"],
-    "icon": "📊",
-    "link": "https://fathom.video"
+    "name": "GitHub Copilot",
+    "description": "AI coding assistant integrated into IDEs, offering smart suggestions, refactors, and docs",
+    "tags": ["Coding Assistant"],
+    "icon": "💻",
+    "link": "https://www.businessinsider.com/ai-coding-tools-popular-github-gemini-code-assist-cursor-q-2025-7"
   },
   {
     "id": 9,
-    "name": "Jasper",
-    "description": "AI writing tool for marketers, generating blog posts, ads, and brand-consistent copy.",
-    "tags": ["Writing", "Marketing"],
-    "icon": "✍️",
-    "link": "https://jasper.ai"
+    "name": "Gemini Code Assist",
+    "description": "Google’s Windsurf-based AI coding tool offering enterprise-grade generation within Gemini",
+    "tags": ["Coding Assistant","Enterprise"],
+    "icon": "🔧",
+    "link": "https://www.marketwatch.com/story/alphabets-latest-deal-reveals-the-hottest-area-of-ai-right-now-19e162aa"
   },
   {
     "id": 10,
-    "name": "Veo 3",
-    "description": "Google's AI video generator with sound effects and dialogue for creative b-roll.",
-    "tags": ["Video", "Creative"],
+    "name": "Midjourney V6",
+    "description": "Advanced text-to-image generation for creative art and prototype visuals",
+    "tags": ["Image Generation","Creative"],
+    "icon": "🖼️",
+    "link": "https://topcompany.ai/the-top-50-ai-tools-in-2025"
+  },
+  {
+    "id": 11,
+    "name": "Adobe Firefly 3",
+    "description": "Integrated Adobe Creative Cloud generative model for text-to-image and beta video",
+    "tags": ["Image Generation","Video","Creative"],
+    "icon": "🎨",
+    "link": "https://en.wikipedia.org/wiki/Adobe_Firefly"
+  },
+  {
+    "id": 12,
+    "name": "Runway ML",
+    "description": "AI video generation and editing toolkit (Gen‑2) for creators and marketers",
+    "tags": ["Video","Creative"],
     "icon": "🎬",
-    "link": "https://ai.google/discover/veo"
+    "link": "https://topcompany.ai/the-top-50-ai-tools-in-2025"
+  },
+  {
+    "id": 13,
+    "name": "Synthesia Studio Pro",
+    "description": "Multilingual avatar-based video creation from scripts for training & marketing",
+    "tags": ["Video","Avatars"],
+    "icon": "🎥",
+    "link": "https://www.aiplusinfo.com/top-ai-tools-of-2025-and-key-usage-tip"
+  },
+  {
+    "id": 14,
+    "name": "ElevenLabs Voice AI",
+    "description": "High-fidelity, multilingual voice synthesis with emotional nuance for audio content",
+    "tags": ["Voice","Audio"],
+    "icon": "🎙️",
+    "link": "https://www.aiplusinfo.com/top-ai-tools-of-2025-and-key-usage-tip"
+  },
+  {
+    "id": 15,
+    "name": "AutoGPT 2.0",
+    "description": "Open-source autonomous agent chaining tasks with minimal prompts",
+    "tags": ["AI Agents","Automation"],
+    "icon": "🤖",
+    "link": "https://www.reviewpublically.com/10-must-try-ai-tools-in-2025-updated-july-2025/"
+  },
+  {
+    "id": 16,
+    "name": "Adept ACT‑1",
+    "description": "Agent that interacts with software on your behalf to complete digital workflows",
+    "tags": ["AI Agents","Productivity"],
+    "icon": "🧩",
+    "link": "https://topcompany.ai/the-top-50-ai-tools-in-2025"
+  },
+  {
+    "id": 17,
+    "name": "Notion AI",
+    "description": "Embedded AI in notes/tasks for summarization, generation & brainstorming",
+    "tags": ["Productivity","Writing"],
+    "icon": "📝",
+    "link": "https://www.aiplusinfo.com/top-ai-tools-of-2025-and-key-usage-tip"
+  },
+  {
+    "id": 18,
+    "name": "Grammarly GO",
+    "description": "Advanced real-time writing assistant that adapts to tone and context",
+    "tags": ["Writing","Productivity"],
+    "icon": "✍️",
+    "link": "https://www.aiplusinfo.com/top-ai-tools-of-2025-and-key-usage-tip"
+  },
+  {
+    "id": 19,
+    "name": "Luma AI",
+    "description": "Turns smartphone photos into 3D assets for VR, gaming, and design workflows",
+    "tags": ["Image Generation","3D"],
+    "icon": "📸",
+    "link": "https://www.aiplusinfo.com/top-ai-tools-of-2025-and-key-usage-tip"
+  },
+  {
+    "id": 20,
+    "name": "Taskade AI",
+    "description": "Combined chat, task manager & mind-map workspace powered by AI",
+    "tags": ["Productivity","Teamwork"],
+    "icon": "📋",
+    "link": "https://www.digitalsuccess.us/blog/30-best-ai-tools-to-watch-in-2025-tried-and-tested.html"
   }
 ]
+
 
 export default aiTools;
