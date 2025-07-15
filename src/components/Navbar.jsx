@@ -88,6 +88,11 @@ const Navbar = ({ onSubscribeClick }) => {
           <span></span>
         </button>
 
+        {/* Mobile Sidebar Overlay */}
+        {isMobileMenuOpen && (
+          <div className="navbar-mobile-overlay" onClick={closeMobileMenu} />
+        )}
+
         {/* Navigation */}
         <nav className={`navbar-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           {/* Mobile menu header */}

@@ -627,3 +627,248 @@
     animation: none !important;
   }
 }
+
+/* --- Modern Mobile Sidebar Redesign --- */
+@media (max-width: 768px) {
+  /* Overlay for sidebar */
+  .navbar-mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.55);
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+  }
+  .navbar-mobile-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Sidebar panel */
+  .navbar-nav.mobile-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 82vw;
+    max-width: 340px;
+    background: var(--navbar-background-dark);
+    box-shadow: 2px 0 24px 0 rgba(0,0,0,0.45);
+    border-top-right-radius: 1.2rem;
+    border-bottom-right-radius: 1.2rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(0);
+    transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+    padding: 0 0 0.5rem 0;
+  }
+  .navbar-nav:not(.mobile-open) {
+    transform: translateX(-110%);
+    transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+  }
+
+  /* Sidebar header */
+  .navbar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.5rem 0.5rem 1.5rem;
+    border-bottom: 1px solid rgba(0,255,153,0.08);
+  }
+  .navbar-mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .navbar-mobile-close {
+    font-size: 2.1rem;
+    background: none;
+    border: none;
+    color: var(--navbar-text-light);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .navbar-mobile-close:hover {
+    color: var(--navbar-primary-color);
+  }
+
+  /* Sidebar nav list */
+  .navbar-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 1.2rem 0 0 0;
+    padding: 0 0.5rem;
+  }
+  .navbar-nav-item {
+    width: 100%;
+  }
+  .navbar-nav-item a {
+    display: flex;
+    align-items: center;
+    font-size: 1.13rem;
+    color: var(--navbar-text-light);
+    text-decoration: none;
+    padding: 0.85rem 1.7rem;
+    border-radius: 0.7rem;
+    margin-bottom: 0.2rem;
+    position: relative;
+    transition: background 0.18s, color 0.18s;
+    font-weight: 500;
+  }
+  .navbar-nav-item a.active {
+    background: rgba(0,255,153,0.10);
+    color: var(--navbar-primary-color);
+  }
+  .navbar-nav-item a.active::before {
+    content: '';
+    position: absolute;
+    left: 0.7rem;
+    top: 18%;
+    height: 64%;
+    width: 4px;
+    border-radius: 2px;
+    background: var(--navbar-primary-color);
+  }
+  .navbar-nav-item a:hover {
+    background: rgba(0,255,153,0.07);
+    color: var(--navbar-primary-color);
+  }
+
+  /* Mobile actions at bottom */
+  .mobile-actions {
+    margin-top: auto;
+    padding: 1.2rem 1.5rem 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    border-top: 1px solid rgba(0,255,153,0.08);
+    background: transparent;
+  }
+  .mobile-actions .navbar-search {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .mobile-actions .navbar-search-input {
+    width: 100%;
+    min-width: 0;
+    background: var(--navbar-background-light);
+    border: 1px solid #222;
+    color: var(--navbar-text-light);
+    font-size: 1rem;
+    padding: 0.6rem 1rem 0.6rem 2.2rem;
+    border-radius: 1.5rem;
+    box-sizing: border-box;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+  }
+  .mobile-actions .navbar-search-input:focus {
+    border-color: var(--navbar-primary-color);
+    box-shadow: 0 0 0 2px rgba(0,255,153,0.13);
+  }
+  .mobile-actions .navbar-search-button {
+    position: absolute;
+    left: 0.7rem;
+    background: none;
+    border: none;
+    color: var(--navbar-primary-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 2;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  .mobile-actions .navbar-subscribe-btn {
+    width: 100%;
+    border-radius: 1.5rem;
+    font-size: 1.05rem;
+    padding: 0.7rem 0;
+    margin-top: 0.2rem;
+  }
+  .navbar-profile-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .mobile-actions .navbar-profile {
+    width: 100%;
+    margin-top: 0.2rem;
+    background: var(--navbar-background-light);
+    border-radius: 1.2rem;
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.18s;
+  }
+  .mobile-actions .navbar-profile.active,
+  .mobile-actions .navbar-profile:hover {
+    background: rgba(0,255,153,0.10);
+  }
+  .mobile-actions .navbar-profile-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 1.1rem;
+    color: var(--navbar-text-light);
+  }
+  .mobile-actions .navbar-profile-dropdown {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 110%;
+    background: var(--navbar-background-light);
+    border-radius: 0.7rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    z-index: 10;
+    overflow: hidden;
+    flex-direction: column;
+    min-width: 140px;
+  }
+  .mobile-actions .navbar-profile.active .navbar-profile-dropdown {
+    display: flex;
+  }
+  .mobile-actions .navbar-profile-dropdown a {
+    color: var(--navbar-text-light);
+    padding: 0.8rem 1.1rem;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s;
+    font-size: 0.98rem;
+  }
+  .mobile-actions .navbar-profile-dropdown a:hover {
+    background: rgba(0,255,153,0.10);
+    color: var(--navbar-primary-color);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide any close button in the main navbar logo/header when sidebar is open */
+  .mobile-menu-open .navbar-logo .navbar-mobile-close {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-open .navbar-mobile-toggle {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-nav-item a.active {
+    padding-left: 1.2rem;
+  }
+  .navbar-nav-item a.active::before {
+    left: 0.2rem;
+  }
+}
