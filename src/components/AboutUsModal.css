@@ -1,0 +1,64 @@
+.aboutus-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.aboutus-modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  position: relative;
+  text-align: left;
+}
+
+.aboutus-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.aboutus-modal-content h2 {
+  margin-top: 0;
+  color: #00ffae;
+  font-weight: 800;
+}
+
+.aboutus-modal-content p,
+.aboutus-modal-content ul,
+.aboutus-modal-content li {
+  color: #222;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.aboutus-modal-content ul {
+  margin: 1rem 0;
+  padding-left: 1.2rem;
+}
+
+.aboutus-modal-content a {
+  color: #00aaff;
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.aboutus-modal-content a:hover {
+  color: #00ffae;
+  font-weight: 700;
+} 

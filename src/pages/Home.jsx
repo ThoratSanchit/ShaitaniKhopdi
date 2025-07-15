@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AIToolCard from '../components/AIToolCard';
 import ArticleCard from '../components/ArticleCard';
 import ContestCard from '../components/ContestCard';
@@ -7,8 +7,10 @@ import articles from '../data/articles';
 import contests from '../data/contests';
 import skullImage from "../assets/real-removebg-preview.png"; // Renamed for clarity
 import './Home.css';
+import AboutUsModal from '../components/AboutUsModal';
 
 const Home = () => {
+  const [showAboutModal, setShowAboutModal] = useState(false);
   const trendingArticles = articles.slice(0, 5);
   const upcomingContests = contests.slice(0, 2);
 
@@ -26,7 +28,7 @@ const Home = () => {
             <a href="https://discord.gg/jAYFqV8E" target="_blank" rel="noopener noreferrer">
               <button className="home-primary-btn">Join Community</button>
             </a>
-            <button className="home-secondary-btn">Learn More</button>
+            <button className="home-secondary-btn" onClick={() => setShowAboutModal(true)}>Learn More</button>
           </div>
         </div>
         <div className="home-hero-image-container">
@@ -68,6 +70,7 @@ const Home = () => {
           ))}
         </div>
       </section>
+      {showAboutModal && <AboutUsModal onClose={() => setShowAboutModal(false)} />}
     </div>
   );
 };
