@@ -145,6 +145,7 @@ const Navbar = ({ onSubscribeClick }) => {
             >
               Subscribe
             </button>
+            {/*
             <div className="navbar-profile-container">
               <div 
                 className={`navbar-profile ${isProfileDropdownOpen ? 'active' : ''}`}
@@ -158,6 +159,7 @@ const Navbar = ({ onSubscribeClick }) => {
                 </div>
               </div>
             </div>
+            */}
           </div>
         </nav>
 
@@ -193,6 +195,7 @@ const Navbar = ({ onSubscribeClick }) => {
           <button className="navbar-subscribe-btn" onClick={onSubscribeClick}>
             Subscribe
           </button>
+          {/*
           <div className="navbar-profile">
             <div className="navbar-profile-icon">👤</div>
             <div className="navbar-profile-dropdown">
@@ -201,6 +204,7 @@ const Navbar = ({ onSubscribeClick }) => {
               <a href="/logout">Logout</a>
             </div>
           </div>
+          */}
         </div>
       </div>
     </header>
