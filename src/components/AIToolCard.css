@@ -8,6 +8,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 280px;
 }
 
 .ai-tool-card:hover {
@@ -36,6 +37,8 @@
   color: #bbb;
   margin-bottom: 15px;
   font-size: 0.9rem;
+  flex-grow: 1;
+  line-height: 1.5;
 }
 
 .tool-tags {
@@ -43,6 +46,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  margin-top: auto;
 }
 
 .try-now-btn {
