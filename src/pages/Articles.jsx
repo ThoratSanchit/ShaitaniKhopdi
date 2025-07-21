@@ -3,16 +3,31 @@ import ArticleCard from '../components/ArticleCard';
 import articles from '../data/articles';
 import './Articles.css';
 
+const getArticlesPerPage = () => {
+  if (window.innerWidth <= 600) return 1;
+  if (window.innerWidth <= 900) return 2;
+  if (window.innerWidth <= 1200) return 3;
+  return 4;
+};
+
 const Articles = () => {
   const [category, setCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
-  const articlesPerPage = 6;
+  const [articlesPerPage, setArticlesPerPage] = useState(getArticlesPerPage());
 
   const categoryDropdownRef = useRef(null);
   const sortDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setArticlesPerPage(getArticlesPerPage());
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Handle clicks outside dropdown
   useEffect(() => {
