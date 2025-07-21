@@ -46,30 +46,35 @@ const ContestCard = ({ contest }) => {
   });
   
   return (
-    <div className="contest-card">
+    <div className="contest-card pro">
       <div className="contest-header">
-        <h3>{contest.name}</h3>
-        <span className="prize">🏆 ${contest.prize}</span>
+        <h3 className="contest-title-pro">{contest.name}</h3>
+        <span className="prize-pro">🏆 {contest.prize}</span>
       </div>
-      <div className="contest-details">
-        <p className="description">{contest.description}</p>
-        <div className="contest-meta">
-          <span className="date">📅 {contest.date}</span>
-          <span className="duration">⏱️ {contest.duration}</span>
-        </div>
+      <div className="contest-meta-pro">
+        <span className="date-pro">📅 {contest.date}</span>
+        <span className="duration-pro">⏱️ {contest.duration}</span>
+        <span className="type-pro">{contest.type}</span>
+        <span className="location-pro">{contest.location}</span>
       </div>
-      <div className="countdown">
+      <div className="countdown-pro">
         {timerComponents.length ? (
-          <div className="timer">
-            Starts in: <span className="time">{timerComponents}</span>
+          <div className="timer-pro">
+            Starts in: <span className="time-pro">{timerComponents}</span>
           </div>
         ) : (
-          <div className="timer">Contest has started!</div>
+          <div className="timer-pro">Contest has started!</div>
         )}
       </div>
-      <div className="contest-actions">
-        <button className="btn register-btn">Register Now</button>
-        <button className="btn outline-btn">View Details</button>
+      <div className="contest-actions-pro">
+        <a
+          className="btn-pro register-btn-pro"
+          href={contest.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Apply Now
+        </a>
       </div>
     </div>
   );
