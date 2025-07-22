@@ -19,6 +19,7 @@ const Footer = () => {
               <li><a href="/ai-tools">AI Tools</a></li>
               <li><a href="/contests">Contests</a></li>
               <li><a href="/articles">News</a></li>
+              <li><a href="/blogs">Blogs</a></li>
             </ul>
           </div>
           

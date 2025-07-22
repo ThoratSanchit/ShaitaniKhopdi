@@ -123,6 +123,9 @@ const Navbar = ({ onSubscribeClick }) => {
             <li className="navbar-nav-item">
               <a href="/articles" onClick={closeMobileMenu} className={isActiveLink('/articles') ? 'active' : ''}>News</a>
             </li>
+            <li className="navbar-nav-item">
+              <a href="/blogs" onClick={closeMobileMenu} className={isActiveLink('/blogs') ? 'active' : ''}>Blogs</a>
+            </li>
           </ul>
 
           {/* Mobile Actions */}
@@ -177,6 +180,9 @@ const Navbar = ({ onSubscribeClick }) => {
             </li>
             <li className="navbar-nav-item">
               <a href="/articles" className={isActiveLink('/articles') ? 'active' : ''}>News</a>
+            </li>
+            <li className="navbar-nav-item">
+              <a href="/blogs" className={isActiveLink('/blogs') ? 'active' : ''}>Blogs</a>
             </li>
           </ul>
         </nav>

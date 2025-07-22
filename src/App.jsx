@@ -8,6 +8,8 @@ import Contests from './pages/Contests';
 import AITools from './pages/AITools';
 import Footer from './components/Footer';
 import SubscribeModal from './components/SubscribeModal';
+import Blogs from './pages/Blogs';
+import BlogPost from './pages/BlogPost';
 import './App.css';
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogPost />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/articles/:id" element={<SinglePost />} />
             <Route path="/contests" element={<Contests />} />
