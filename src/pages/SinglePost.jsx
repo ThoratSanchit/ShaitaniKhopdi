@@ -25,16 +25,12 @@ const SinglePost = () => {
           ))}
         </div>
       </div>
-      
       <div className="post-image">
         <div className="image-placeholder">📄</div>
       </div>
-      
       <div className="post-content">
         <p>This is a detailed article about {article.title}. In a real implementation, this would be the full content of the article.</p>
-        
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
-        
         <h2>Code Example</h2>
         <pre className="code-block">
           <code>
@@ -44,37 +40,9 @@ const SinglePost = () => {
 }`}
           </code>
         </pre>
-        
         <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        
         <h2>Conclusion</h2>
         <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      
-      <div className="post-reactions">
-        <button className="reaction-btn">❤️ {article.likes}</button>
-        <button className="reaction-btn">💬 {article.comments} Comments</button>
-        <button className="reaction-btn">🔗 Share</button>
-      </div>
-      
-      <div className="comments-section">
-        <h3>Comments</h3>
-        <div className="comment-form">
-          <textarea placeholder="Add your comment..." rows="3"></textarea>
-          <button className="btn">Post Comment</button>
-        </div>
-        
-        <div className="comment">
-          <div className="comment-author">Hacker123</div>
-          <div className="comment-date">2 days ago</div>
-          <div className="comment-text">Great article! Really enjoyed the code examples.</div>
-        </div>
-        
-        <div className="comment">
-          <div className="comment-author">CodeMaster</div>
-          <div className="comment-date">1 week ago</div>
-          <div className="comment-text">This is exactly what I was looking for. Thanks for sharing!</div>
-        </div>
       </div>
     </div>
   );

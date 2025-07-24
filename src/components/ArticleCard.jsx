@@ -28,11 +28,6 @@ const ArticleCard = ({ article }) => {
               <span key={index} className="tag">{tag}</span>
             ))}
           </div>
-          <div className="reactions">
-            <span className="reaction">❤️ {article.likes}</span>
-            <span className="reaction">💬 {article.comments}</span>
-            <span className="reaction">👁️ {article.views}</span>
-          </div>
         </div>
       <button className="btn read-article-btn" onClick={handleTryNow}>
         Read Article

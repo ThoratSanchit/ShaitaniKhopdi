@@ -23,11 +23,6 @@ const BlogCard = ({ blog, onClick }) => {
               <span key={index} className="tag">{tag}</span>
             ))}
           </div>
-          <div className="reactions">
-            <span className="reaction">❤️ {blog.likes}</span>
-            <span className="reaction">💬 {blog.comments}</span>
-            <span className="reaction">👁️ {blog.views}</span>
-          </div>
         </div>
         <button className="btn read-blog-btn" onClick={e => { e.stopPropagation(); onClick(); }}>
           Read Blog

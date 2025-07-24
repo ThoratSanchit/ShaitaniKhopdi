@@ -13,7 +13,6 @@ const getArticlesPerPage = () => {
 
 const Articles = () => {
   const [category, setCategory] = useState('all');
-  const [sortBy, setSortBy] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
@@ -56,25 +55,10 @@ const Articles = () => {
     { value: 'Ethics', label: 'Ethics' }
   ];
 
-  // Sort options
-  const sortOptions = [
-    { value: 'newest', label: 'Newest First' },
-    { value: 'popular', label: 'Most Popular' },
-    { value: 'comments', label: 'Most Discussed' }
-  ];
-
   // Filter and sort articles
   const filteredArticles = articles
     .filter(article => category === 'all' || article.tags.includes(category))
-    .sort((a, b) => {
-      if (sortBy === 'newest') {
-        return new Date(b.date) - new Date(a.date);
-      } else if (sortBy === 'popular') {
-        return b.views - a.views;
-      } else {
-        return b.comments - a.comments;
-      }
-    });
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   // Pagination logic
   const indexOfLastArticle = currentPage * articlesPerPage;
@@ -120,35 +104,6 @@ const Articles = () => {
                           setCategory(option.value);
                           setCurrentPage(1);
                           setCategoryDropdownOpen(false);
-                        }}
-                      >
-                        {option.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="filter-group" ref={sortDropdownRef}>
-              <div className="custom-select-wrapper">
-                <button
-                  className="custom-select-button"
-                  onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-                >
-                  {sortOptions.find(opt => opt.value === sortBy)?.label}
-                  <svg className={`select-arrow ${sortDropdownOpen ? 'open' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-                {sortDropdownOpen && (
-                  <div className="custom-select-dropdown">
-                    {sortOptions.map((option) => (
-                      <button
-                        key={option.value}
-                        className={`dropdown-option ${sortBy === option.value ? 'selected' : ''}`}
-                        onClick={() => {
-                          setSortBy(option.value);
-                          setSortDropdownOpen(false);
                         }}
                       >
                         {option.label}

@@ -46,11 +46,6 @@ const BlogPost = () => {
       <div className="post-content">
         <ReactMarkdown>{blog.content}</ReactMarkdown>
       </div>
-      <div className="post-reactions">
-        <button className="reaction-btn">❤️ {blog.likes}</button>
-        <button className="reaction-btn">💬 {blog.comments} Comments</button>
-        <button className="reaction-btn" onClick={handleShare}>🔗 Share</button>
-      </div>
       {/* Comments section can be added here if needed */}
     </div>
   );
