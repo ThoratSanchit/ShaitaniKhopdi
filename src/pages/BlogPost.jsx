@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import blogs from '../data/blogs';
 import './SinglePost.css';
@@ -7,6 +7,8 @@ import ReactMarkdown from 'react-markdown';
 const BlogPost = () => {
   const { id } = useParams();
   const blog = blogs.find(blog => blog.id === parseInt(id));
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const synthRef = useRef(window.speechSynthesis);
 
   if (!blog) {
     return <div className="not-found">Blog not found</div>;
@@ -23,6 +25,19 @@ const BlogPost = () => {
     }
   };
 
+  // Listen handler
+  const handleListen = () => {
+    if (isSpeaking) {
+      synthRef.current.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+    const utter = new window.SpeechSynthesisUtterance(`${blog.title}. ${blog.content.replace(/[#*_`>-]/g, '')}`);
+    utter.onend = () => setIsSpeaking(false);
+    synthRef.current.speak(utter);
+    setIsSpeaking(true);
+  };
+
   return (
     <div className="single-post">
       <div className="post-header">
@@ -35,6 +50,9 @@ const BlogPost = () => {
             <span key={index} className="tag">{tag}</span>
           ))}
         </div>
+        <button className="listen-btn" onClick={handleListen} style={{marginTop: '1rem', marginBottom: '1rem', padding: '0.5rem 1.2rem', borderRadius: '2rem', border: 'none', background: isSpeaking ? '#ff0066' : '#00ff99', color: '#111', fontWeight: 600, fontSize: '1rem', cursor: 'pointer', transition: 'background 0.2s'}}>
+          {isSpeaking ? 'Stop' : '🔊 Listen'}
+        </button>
       </div>
       <div className="post-image">
         {blog.image ? (
