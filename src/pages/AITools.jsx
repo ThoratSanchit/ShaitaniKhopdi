@@ -148,7 +148,7 @@ const AITools = () => {
       <div className="ai-tools-hero">
         <div className="hero-content">
           <h1>Discover <span className="highlight">AI Tools</span></h1>
-          <p>Explore our curated collection of cutting-edge AI tools to supercharge your workflow</p>
+          <p>Explore our curated collection of cutting-edge AI tools.</p>
         </div>
       </div>
       

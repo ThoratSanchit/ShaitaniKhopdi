@@ -74,8 +74,8 @@ const Articles = () => {
     <div className="articles-page">
       <div className="articles-hero">
         <div className="hero-content">
-          <h1>Tech Insights & <span className="highlight">Innovation</span></h1>
-          <p>Stay ahead with the latest articles, tutorials and thought leadership in technology</p>
+          <h1>Discover <span className="highlight">Articles</span></h1>
+          <p>Explore the latest articles, tutorials, and tech insights.</p>
         </div>
       </div>
 

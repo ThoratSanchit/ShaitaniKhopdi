@@ -100,8 +100,8 @@ const Blogs = () => {
     <div className="blogs-page">
       <div className="blogs-hero">
         <div className="hero-content">
-          <h1>Expert <span className="highlight">Blogs</span> & Insights</h1>
-          <p>Read professional blogs on AI, tech, productivity, and more from industry leaders and practitioners.</p>
+          <h1>Discover <span className="highlight">Blogs</span></h1>
+          <p>Explore expert blogs on AI, tech, and productivity.</p>
         </div>
       </div>
       <div className="blogs-container">

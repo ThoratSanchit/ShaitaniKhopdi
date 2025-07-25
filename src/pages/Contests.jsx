@@ -19,8 +19,8 @@ const Contests = () => {
     <div className="contests-page">
       <div className="contests-hero">
         <div className="hero-content">
-          <h1>Coding Contests <span className="highlight">Challenge Hub</span></h1>
-          <p>Compete, learn, and grow with our curated selection of programming challenges</p>
+          <h1>Discover <span className="highlight">Contests</span></h1>
+          <p>Join coding contests and challenge yourself with new problems.</p>
         </div>
       </div>
       
