@@ -15,6 +15,29 @@ const Contests = () => {
   const sortedLiveContests = [...liveContests].sort((a, b) => new Date(a.date) - new Date(b.date));
   const sortedPastContests = [...pastContests].sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  // Pagination state for past contests
+  const [currentPage, setCurrentPage] = useState(1);
+  const contestsPerPage = 10;
+  const totalPages = Math.ceil(pastContests.length / contestsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
+  const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+  const getPaginationNumbers = (current, total) => {
+    const pages = [];
+    if (total <= 5) {
+      for (let i = 1; i <= total; i++) pages.push(i);
+    } else {
+      if (current <= 3) {
+        pages.push(1, 2, 3, '...', total);
+      } else if (current >= total - 2) {
+        pages.push(1, '...', total - 2, total - 1, total);
+      } else {
+        pages.push(1, '...', current - 1, current, current + 1, '...', total);
+      }
+    }
+    return pages;
+  };
+
   return (
     <div className="contests-page">
       <div className="contests-hero">
@@ -72,17 +95,29 @@ const Contests = () => {
         )}
       </div>
       
-      {activeTab === 'past' && pastContests.length > 10 && (
+      {activeTab === 'past' && pastContests.length > contestsPerPage && (
         <div className="contest-pagination">
-          <button className="pagination-btn">Previous</button>
+          <button className={`pagination-btn ${currentPage === 1 ? 'disabled' : ''}`} onClick={prevPage} disabled={currentPage === 1}>Previous</button>
           <div className="page-numbers">
-            <span className="active">1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>...</span>
-            <span>5</span>
+            {getPaginationNumbers(currentPage, totalPages).map((number, idx, arr) => {
+              if (number === '...') {
+                return (
+                  <span key={`ellipsis-${idx}`} className="ellipsis">...</span>
+                );
+              }
+              return (
+                <button
+                  key={number}
+                  className={`page-btn ${currentPage === number ? 'active' : ''}`}
+                  onClick={() => paginate(number)}
+                  disabled={currentPage === number}
+                >
+                  {number}
+                </button>
+              );
+            })}
           </div>
-          <button className="pagination-btn">Next</button>
+          <button className={`pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`} onClick={nextPage} disabled={currentPage === totalPages}>Next</button>
         </div>
       )}
     </div>

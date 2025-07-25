@@ -53,31 +53,21 @@ const AITools = () => {
   const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
-  // Generate page numbers with ellipsis
-  const getPageNumbers = () => {
-    const pageNumbers = [];
-    const maxVisiblePages = 5;
-    
-    if (totalPages <= maxVisiblePages) {
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
+  // Helper function for windowed pagination
+  const getPaginationNumbers = (current, total) => {
+    const pages = [];
+    if (total <= 5) {
+      for (let i = 1; i <= total; i++) pages.push(i);
     } else {
-      const leftBound = Math.max(1, currentPage - 2);
-      const rightBound = Math.min(totalPages, currentPage + 2);
-      
-      if (leftBound > 1) pageNumbers.push(1);
-      if (leftBound > 2) pageNumbers.push('...');
-      
-      for (let i = leftBound; i <= rightBound; i++) {
-        pageNumbers.push(i);
+      if (current <= 3) {
+        pages.push(1, 2, 3, '...', total);
+      } else if (current >= total - 2) {
+        pages.push(1, '...', total - 2, total - 1, total);
+      } else {
+        pages.push(1, '...', current - 1, current, current + 1, '...', total);
       }
-      
-      if (rightBound < totalPages - 1) pageNumbers.push('...');
-      if (rightBound < totalPages) pageNumbers.push(totalPages);
     }
-    
-    return pageNumbers;
+    return pages;
   };
 
   // Handle search input change
@@ -231,19 +221,23 @@ const AITools = () => {
           </button>
           
           <div className="page-numbers">
-            {getPageNumbers().map((number, index) => (
-              number === '...' ? (
-                <span key={`ellipsis-${index}`} className="page-dots">...</span>
-              ) : (
+            {getPaginationNumbers(currentPage, totalPages).map((number, idx, arr) => {
+              if (number === '...') {
+                return (
+                  <span key={`ellipsis-${idx}`} className="ellipsis">...</span>
+                );
+              }
+              return (
                 <button
                   key={number}
                   className={`page-btn ${currentPage === number ? 'active' : ''}`}
                   onClick={() => paginate(number)}
+                  disabled={currentPage === number}
                 >
                   {number}
                 </button>
-              )
-            ))}
+              );
+            })}
           </div>
           
           <button 

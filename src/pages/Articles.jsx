@@ -70,6 +70,23 @@ const Articles = () => {
   const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
+  // Helper function for windowed pagination
+  const getPaginationNumbers = (current, total) => {
+    const pages = [];
+    if (total <= 5) {
+      for (let i = 1; i <= total; i++) pages.push(i);
+    } else {
+      if (current <= 3) {
+        pages.push(1, 2, 3, '...', total);
+      } else if (current >= total - 2) {
+        pages.push(1, '...', total - 2, total - 1, total);
+      } else {
+        pages.push(1, '...', current - 1, current, current + 1, '...', total);
+      }
+    }
+    return pages;
+  };
+
   return (
     <div className="articles-page">
       <div className="articles-hero">
@@ -137,15 +154,23 @@ const Articles = () => {
                   Previous
                 </button>
                 <div className="page-numbers">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
-                    <button
-                      key={number}
-                      className={`page-btn ${currentPage === number ? 'active' : ''}`}
-                      onClick={() => paginate(number)}
-                    >
-                      {number}
-                    </button>
-                  ))}
+                  {getPaginationNumbers(currentPage, totalPages).map((number, idx, arr) => {
+                    if (number === '...') {
+                      return (
+                        <span key={`ellipsis-${idx}`} className="ellipsis">...</span>
+                      );
+                    }
+                    return (
+                      <button
+                        key={number}
+                        className={`page-btn ${currentPage === number ? 'active' : ''}`}
+                        onClick={() => paginate(number)}
+                        disabled={currentPage === number}
+                      >
+                        {number}
+                      </button>
+                    );
+                  })}
                 </div>
                 <button 
                   className={`pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`} 
