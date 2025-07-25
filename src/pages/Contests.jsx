@@ -17,11 +17,11 @@ const Contests = () => {
 
   return (
     <div className="contests-page">
-      <div className="contest-header">
-        <h1 className="contest-title">Coding Contests <span className="highlight">Challenge Hub</span></h1>
-        <p className="contest-subtitle">
-          Compete, learn, and grow with our curated selection of programming challenges
-        </p>
+      <div className="contests-hero">
+        <div className="hero-content">
+          <h1>Coding Contests <span className="highlight">Challenge Hub</span></h1>
+          <p>Compete, learn, and grow with our curated selection of programming challenges</p>
+        </div>
       </div>
       
       <div className="contest-tabs">

@@ -145,9 +145,11 @@ const AITools = () => {
 
   return (
     <div className="ai-tools-page">
-      <div className="page-header">
-        <h1>Discover <span className="gradient-text">AI Tools</span></h1>
-        <p className="subtitle">Explore our curated collection of cutting-edge AI tools to supercharge your workflow</p>
+      <div className="ai-tools-hero">
+        <div className="hero-content">
+          <h1>Discover <span className="highlight">AI Tools</span></h1>
+          <p>Explore our curated collection of cutting-edge AI tools to supercharge your workflow</p>
+        </div>
       </div>
       
       <div className="filter-section">

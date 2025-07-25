@@ -5,17 +5,41 @@
   padding: 2rem 1rem;
 }
 
-/* Header Styles */
-.contest-header {
-  text-align: center;
+/* Hero Section */
+.contests-hero {
+  background: linear-gradient(135deg, #1a2a3a 0%, #0f172a 100%);
+  border-radius: 1rem;
+  padding: 4rem 2rem;
   margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.contest-title {
-  font-size: 2.5rem;
+.contests-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgNjAwIDYwMCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBvcGFjaXR5PSIuMSI+PHBhdGggZmlsbD0iIzAwZmY5OSIgZD0iTTMwMCAxMjVjOTYuOCAwIDE3NSA3OC4yIDE3NSAxNzVzLTc4LjIgMTc1LTE3NSAxNzVTMjUgMzk2LjggMjUgMzAwczc4LjItMTc1IDE3NS0xNzV6bTAgMzAwYzY5IDAgMTI1LTU2IDEyNS0xMjVzLTU2LTEyNS0xMjUtMTI1LTEyNSA1Ni0xMjUgMTI1IDU2IDEyNSAxMjUgMTI1eiIvPjwvZz48L3N2Zz4=') no-repeat;
+  background-size: contain;
+  background-position: center right;
+  opacity: 0.1;
+}
+
+.hero-content {
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  font-size: 2.75rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   line-height: 1.2;
+  color: #fff;
 }
 
 .highlight {
@@ -25,12 +49,10 @@
   color: transparent;
 }
 
-.contest-subtitle {
-  color: #9CA3AF;
+.hero-content p {
+  color: #94a3b8;
   font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Tab Styles */
