@@ -1,9 +1,9 @@
 /* Contests Page Styles */
 .contests-page {
-  /* Remove vertical padding for consistent navbar gap */
-  max-width: 1200px;
+  /* Match other pages for consistent gap */
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 /* Hero Section */
