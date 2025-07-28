@@ -6,14 +6,14 @@ import './AITools.css';
 const AITools = () => {
   // Categories for filtering
   const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'llm', name: 'Large Language Models' },
-    { id: 'image', name: 'Image Generation' },
-    { id: 'code', name: 'Code Assistance' },
-    { id: 'audio', name: 'Audio Processing' },
-    { id: 'productivity', name: 'Productivity' },
-    { id: 'video', name: 'Video Tools' },
-    { id: 'research', name: 'Research' }
+    { id: 'all', name: 'All', count: aiTools.length },
+    { id: 'llm', name: 'Large Language Models', count: aiTools.filter(tool => tool.category === 'llm').length },
+    { id: 'image', name: 'Image Generation', count: aiTools.filter(tool => tool.category === 'image').length },
+    { id: 'code', name: 'Code Assistance', count: aiTools.filter(tool => tool.category === 'code').length },
+    { id: 'audio', name: 'Audio Processing', count: aiTools.filter(tool => tool.category === 'audio').length },
+    { id: 'productivity', name: 'Productivity', count: aiTools.filter(tool => tool.category === 'productivity').length },
+    { id: 'video', name: 'Video Tools', count: aiTools.filter(tool => tool.category === 'video').length },
+    { id: 'research', name: 'Research', count: aiTools.filter(tool => tool.category === 'research').length }
   ];
 
   // Extract all unique tags from AI tools
@@ -29,8 +29,10 @@ const AITools = () => {
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [selectedTags, setSelectedTags] = useState([]);
   const [showTagDropdown, setShowTagDropdown] = useState(false);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const suggestionsRef = useRef(null);
   const tagDropdownRef = useRef(null);
+  const categoryDropdownRef = useRef(null);
 
   // Filtered tools by category, search query, and selected tags
   const filteredTools = aiTools.filter(tool => {
@@ -145,6 +147,19 @@ const AITools = () => {
     setCurrentPage(1);
   };
 
+  // Handle category selection
+  const handleCategorySelect = (categoryId) => {
+    setActiveCategory(categoryId);
+    setCurrentPage(1);
+    setShowCategoryDropdown(false);
+  };
+
+  // Get current category name
+  const getCurrentCategoryName = () => {
+    const category = categories.find(cat => cat.id === activeCategory);
+    return category ? category.name : 'All';
+  };
+
   // Hide suggestions when clicking outside
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -154,6 +169,9 @@ const AITools = () => {
       }
       if (tagDropdownRef.current && !tagDropdownRef.current.contains(event.target)) {
         setShowTagDropdown(false);
+      }
+      if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target)) {
+        setShowCategoryDropdown(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -170,50 +188,59 @@ const AITools = () => {
       </div>
       
       <div className="filter-section">
-        <div className="search-container" ref={suggestionsRef}>
-          <form className="search-bar" onSubmit={handleSearch} autoComplete="off">
-            <svg className="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M21 21L16.65 16.65" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <input 
-              type="text" 
-              placeholder="Search AI tools (e.g. 'image generation', 'code assistant')" 
-              className="search-input"
-              value={searchInput}
-              onChange={handleSearchInputChange}
-              onKeyDown={handleSearchInputKeyDown}
-              autoComplete="off"
-              aria-autocomplete="list"
-              aria-controls="ai-tools-suggestions"
-              aria-activedescendant={highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined}
-            />
-            {/* Suggestions dropdown */}
-            {showSuggestions && suggestions.length > 0 && (
-              <ul className="search-suggestions" id="ai-tools-suggestions" role="listbox">
-                {suggestions.map((tool, idx) => (
-                  <li
-                    key={tool.id}
-                    id={`suggestion-${idx}`}
-                    className={`suggestion-item${highlightedIndex === idx ? ' highlighted' : ''}`}
-                    onMouseDown={() => handleSuggestionClick(tool)}
-                    role="option"
-                    aria-selected={highlightedIndex === idx}
-                  >
-                    {tool.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </form>
-          <button className="search-btn" onClick={handleSearch}>
-            Search
-          </button>
-        </div>
+        {/* Unified Search and Filter Controls */}
+        <div className="unified-controls">
+          {/* Search Bar */}
+          <div className="search-container" ref={suggestionsRef}>
+            <form className="search-bar" onSubmit={handleSearch} autoComplete="off">
+              <svg className="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M21 21L16.65 16.65" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <input 
+                type="text" 
+                placeholder="Search AI tools..." 
+                className="search-input"
+                value={searchInput}
+                onChange={handleSearchInputChange}
+                onKeyDown={handleSearchInputKeyDown}
+                autoComplete="off"
+                aria-autocomplete="list"
+                aria-controls="ai-tools-suggestions"
+                aria-activedescendant={highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined}
+              />
+              {/* Suggestions dropdown */}
+              {showSuggestions && suggestions.length > 0 && (
+                <ul className="search-suggestions" id="ai-tools-suggestions" role="listbox">
+                  {suggestions.map((tool, idx) => (
+                    <li
+                      key={tool.id}
+                      id={`suggestion-${idx}`}
+                      className={`suggestion-item${highlightedIndex === idx ? ' highlighted' : ''}`}
+                      onMouseDown={() => handleSuggestionClick(tool)}
+                      role="option"
+                      aria-selected={highlightedIndex === idx}
+                    >
+                      {tool.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </form>
+            <button className="search-btn" onClick={handleSearch}>
+              <svg className="search-btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Search
+            </button>
+          </div>
 
-        {/* Tag Filter Dropdown */}
-        <div className="tag-filter-container" ref={tagDropdownRef}>
-          <div className="tag-filter-header">
+          {/* Filter Separator */}
+          <div className="filter-separator">|</div>
+
+          {/* Tag Filter */}
+          <div className="tag-filter-container" ref={tagDropdownRef}>
             <button 
               className={`tag-dropdown-btn ${showTagDropdown ? 'active' : ''}`}
               onClick={() => setShowTagDropdown(!showTagDropdown)}
@@ -229,63 +256,81 @@ const AITools = () => {
                 <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
+
+            {showTagDropdown && (
+              <div className="tag-dropdown">
+                <div className="tag-dropdown-content">
+                  {allTags.map(tag => (
+                    <label key={tag} className="tag-option">
+                      <input
+                        type="checkbox"
+                        checked={selectedTags.includes(tag)}
+                        onChange={() => handleTagToggle(tag)}
+                        className="tag-checkbox"
+                      />
+                      <span className="tag-label">{tag}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Selected Tags Display */}
             {selectedTags.length > 0 && (
-              <button className="clear-tags-btn" onClick={clearAllTags}>
-                Clear All
-              </button>
+              <div className="selected-tags">
+                {selectedTags.map(tag => (
+                  <span key={tag} className="selected-tag">
+                    {tag}
+                    <button 
+                      className="remove-tag-btn"
+                      onClick={() => handleTagToggle(tag)}
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                <button className="clear-tags-btn" onClick={clearAllTags}>
+                  Clear All
+                </button>
+              </div>
             )}
           </div>
 
-          {showTagDropdown && (
-            <div className="tag-dropdown">
-              <div className="tag-dropdown-content">
-                {allTags.map(tag => (
-                  <label key={tag} className="tag-option">
-                    <input
-                      type="checkbox"
-                      checked={selectedTags.includes(tag)}
-                      onChange={() => handleTagToggle(tag)}
-                      className="tag-checkbox"
-                    />
-                    <span className="tag-label">{tag}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Filter Separator */}
+          <div className="filter-separator">|</div>
 
-          {/* Selected Tags Display */}
-          {selectedTags.length > 0 && (
-            <div className="selected-tags">
-              {selectedTags.map(tag => (
-                <span key={tag} className="selected-tag">
-                  {tag}
-                  <button 
-                    className="remove-tag-btn"
-                    onClick={() => handleTagToggle(tag)}
-                  >
-                    ×
-                  </button>
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-        
-        <div className="category-filters">
-          {categories.map(category => (
+          {/* Category Filter */}
+          <div className="category-filter-container" ref={categoryDropdownRef}>
             <button 
-              key={category.id} 
-              className={`category-btn ${activeCategory === category.id ? 'active' : ''}`}
-              onClick={() => {
-                setActiveCategory(category.id);
-                setCurrentPage(1); // Reset to first page when changing category
-              }}
+              className={`category-dropdown-btn ${showCategoryDropdown ? 'active' : ''}`}
+              onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
             >
-              {category.name}
-              {category.id === 'all' && <span className="tool-count">{aiTools.length}+</span>}
+              <svg className="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3H21V5H3V3ZM3 7H21V9H3V7ZM3 11H21V13H3V11ZM3 15H21V17H3V15ZM3 19H21V21H3V19Z" fill="currentColor"/>
+              </svg>
+              {getCurrentCategoryName()}
+              <svg className={`dropdown-arrow ${showCategoryDropdown ? 'rotated' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </button>
-          ))}
+
+            {showCategoryDropdown && (
+              <div className="category-dropdown">
+                <div className="category-dropdown-content">
+                  {categories.map(category => (
+                    <button
+                      key={category.id}
+                      className={`category-option ${activeCategory === category.id ? 'active' : ''}`}
+                      onClick={() => handleCategorySelect(category.id)}
+                    >
+                      <span className="category-name">{category.name}</span>
+                      <span className="category-count">{category.count}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       

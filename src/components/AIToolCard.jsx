@@ -27,4 +27,4 @@ const AIToolCard = ({ tool }) => {
   );
 };
 
-export default AIToolCard;
+export default AIToolCard; 
