@@ -82,6 +82,25 @@
   gap: 5px;
 }
 
+.blog-card .tags .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  color: #00ff99;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  min-height: 26px;
+  line-height: 1;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 .reactions {
   display: flex;
   gap: 10px;

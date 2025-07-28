@@ -44,9 +44,32 @@
 .tool-tags {
   margin-bottom: 20px;
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
   align-items: center;
   margin-top: auto;
+}
+
+.ai-tool-card .tool-tags .tag {
+  background: linear-gradient(90deg, #00ff99, #00ccff);
+  color: #111827;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: inline-block;
+  border: none;
+  outline: none;
+  cursor: default;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.ai-tool-card .tool-tags .tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 255, 153, 0.3);
 }
 
 .try-now-btn {

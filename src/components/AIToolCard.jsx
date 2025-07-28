@@ -5,6 +5,7 @@ const AIToolCard = ({ tool }) => {
   const handleTryNow = () => {
     window.open(tool.link, "_blank"); // Opens in a new tab immediately
   };
+  
   return (
     <div className="ai-tool-card">
       <div className="tool-header">
@@ -13,7 +14,7 @@ const AIToolCard = ({ tool }) => {
       </div>
       <p className="tool-description">{tool.description}</p>
       <div className="tool-tags">
-        {(tool.tags.slice(0, 2)).map((tag, index) => (
+        {tool.tags.map((tag, index) => (
           <span key={index} className="tag">
             {tag}
           </span>

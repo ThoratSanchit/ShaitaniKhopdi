@@ -16,6 +16,9 @@ const AITools = () => {
     { id: 'research', name: 'Research' }
   ];
 
+  // Extract all unique tags from AI tools
+  const allTags = [...new Set(aiTools.flatMap(tool => tool.tags))].sort();
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [toolsPerPage] = useState(8); // Tools per page
@@ -24,15 +27,20 @@ const AITools = () => {
   const [searchInput, setSearchInput] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [showTagDropdown, setShowTagDropdown] = useState(false);
   const suggestionsRef = useRef(null);
+  const tagDropdownRef = useRef(null);
 
-  // Filtered tools by category and search query
+  // Filtered tools by category, search query, and selected tags
   const filteredTools = aiTools.filter(tool => {
     const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
     const matchesSearch = searchQuery.trim() === '' ||
       tool.name.toLowerCase().includes(searchQuery.trim().toLowerCase()) ||
       (tool.description && tool.description.toLowerCase().includes(searchQuery.trim().toLowerCase()));
-    return matchesCategory && matchesSearch;
+    const matchesTags = selectedTags.length === 0 || 
+      selectedTags.some(tag => tool.tags.includes(tag));
+    return matchesCategory && matchesSearch && matchesTags;
   });
 
   // Filtered suggestions for autocomplete
@@ -121,12 +129,31 @@ const AITools = () => {
     setTimeout(() => handleSearch(), 0);
   };
 
+  // Handle tag selection
+  const handleTagToggle = (tag) => {
+    setSelectedTags(prev => 
+      prev.includes(tag) 
+        ? prev.filter(t => t !== tag)
+        : [...prev, tag]
+    );
+    setCurrentPage(1);
+  };
+
+  // Clear all selected tags
+  const clearAllTags = () => {
+    setSelectedTags([]);
+    setCurrentPage(1);
+  };
+
   // Hide suggestions when clicking outside
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
         setShowSuggestions(false);
         setHighlightedIndex(-1);
+      }
+      if (tagDropdownRef.current && !tagDropdownRef.current.contains(event.target)) {
+        setShowTagDropdown(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -182,6 +209,67 @@ const AITools = () => {
           <button className="search-btn" onClick={handleSearch}>
             Search
           </button>
+        </div>
+
+        {/* Tag Filter Dropdown */}
+        <div className="tag-filter-container" ref={tagDropdownRef}>
+          <div className="tag-filter-header">
+            <button 
+              className={`tag-dropdown-btn ${showTagDropdown ? 'active' : ''}`}
+              onClick={() => setShowTagDropdown(!showTagDropdown)}
+            >
+              <svg className="tag-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 7H.01V7H7zM7 12H.01V12H7zM7 17H.01V17H7zM9 7H23V9H9V7zM9 12H23V14H9V12zM9 17H23V19H9V17z" fill="currentColor"/>
+              </svg>
+              Filter by Tags
+              {selectedTags.length > 0 && (
+                <span className="selected-count">{selectedTags.length}</span>
+              )}
+              <svg className={`dropdown-arrow ${showTagDropdown ? 'rotated' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {selectedTags.length > 0 && (
+              <button className="clear-tags-btn" onClick={clearAllTags}>
+                Clear All
+              </button>
+            )}
+          </div>
+
+          {showTagDropdown && (
+            <div className="tag-dropdown">
+              <div className="tag-dropdown-content">
+                {allTags.map(tag => (
+                  <label key={tag} className="tag-option">
+                    <input
+                      type="checkbox"
+                      checked={selectedTags.includes(tag)}
+                      onChange={() => handleTagToggle(tag)}
+                      className="tag-checkbox"
+                    />
+                    <span className="tag-label">{tag}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Selected Tags Display */}
+          {selectedTags.length > 0 && (
+            <div className="selected-tags">
+              {selectedTags.map(tag => (
+                <span key={tag} className="selected-tag">
+                  {tag}
+                  <button 
+                    className="remove-tag-btn"
+                    onClick={() => handleTagToggle(tag)}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         
         <div className="category-filters">
