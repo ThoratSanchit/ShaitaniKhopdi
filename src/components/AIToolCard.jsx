@@ -10,7 +10,12 @@ const AIToolCard = ({ tool }) => {
     <div className="ai-tool-card">
       <div className="tool-header">
         <div className="tool-icon">{tool.icon}</div>
-        <h3>{tool.name}</h3>
+        <div className="tool-title-section">
+          <h3>{tool.name}</h3>
+          {tool.price && (
+            <span className="tool-price">{tool.price}</span>
+          )}
+        </div>
       </div>
       <p className="tool-description">{tool.description}</p>
       <div className="tool-tags">

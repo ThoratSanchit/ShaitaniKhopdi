@@ -4,20 +4,24 @@ import aiTools from '../data/aiTools';
 import './AITools.css';
 
 const AITools = () => {
-  // Categories for filtering
+  // Categories for filtering - updated to match the new data structure
   const categories = [
     { id: 'all', name: 'All', count: aiTools.length },
-    { id: 'llm', name: 'Large Language Models', count: aiTools.filter(tool => tool.category === 'llm').length },
-    { id: 'image', name: 'Image Generation', count: aiTools.filter(tool => tool.category === 'image').length },
-    { id: 'code', name: 'Code Assistance', count: aiTools.filter(tool => tool.category === 'code').length },
-    { id: 'audio', name: 'Audio Processing', count: aiTools.filter(tool => tool.category === 'audio').length },
-    { id: 'productivity', name: 'Productivity', count: aiTools.filter(tool => tool.category === 'productivity').length },
-    { id: 'video', name: 'Video Tools', count: aiTools.filter(tool => tool.category === 'video').length },
-    { id: 'research', name: 'Research', count: aiTools.filter(tool => tool.category === 'research').length }
+    { id: 'Foundation', name: 'Foundation Models', count: aiTools.filter(tool => tool.category === 'Foundation').length },
+    { id: 'Creative', name: 'Creative Tools', count: aiTools.filter(tool => tool.category === 'Creative').length },
+    { id: 'Productivity', name: 'Productivity', count: aiTools.filter(tool => tool.category === 'Productivity').length },
+    { id: 'Enterprise', name: 'Enterprise', count: aiTools.filter(tool => tool.category === 'Enterprise').length },
+    { id: 'Developer', name: 'Developer Tools', count: aiTools.filter(tool => tool.category === 'Developer').length },
+    { id: 'Research', name: 'Research', count: aiTools.filter(tool => tool.category === 'Research').length },
+    { id: 'Healthcare', name: 'Healthcare', count: aiTools.filter(tool => tool.category === 'Healthcare').length },
+    { id: 'Government', name: 'Government', count: aiTools.filter(tool => tool.category === 'Government').length }
   ];
 
   // Extract all unique tags from AI tools
   const allTags = [...new Set(aiTools.flatMap(tool => tool.tags))].sort();
+
+  // Extract all unique prices from AI tools
+  const allPrices = [...new Set(aiTools.map(tool => tool.price).filter(Boolean))].sort();
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,13 +32,16 @@ const AITools = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedPrices, setSelectedPrices] = useState([]);
   const [showTagDropdown, setShowTagDropdown] = useState(false);
+  const [showPriceDropdown, setShowPriceDropdown] = useState(false);
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const suggestionsRef = useRef(null);
   const tagDropdownRef = useRef(null);
+  const priceDropdownRef = useRef(null);
   const categoryDropdownRef = useRef(null);
 
-  // Filtered tools by category, search query, and selected tags
+  // Filtered tools by category, search query, selected tags, and selected prices
   const filteredTools = aiTools.filter(tool => {
     const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
     const matchesSearch = searchQuery.trim() === '' ||
@@ -42,7 +49,9 @@ const AITools = () => {
       (tool.description && tool.description.toLowerCase().includes(searchQuery.trim().toLowerCase()));
     const matchesTags = selectedTags.length === 0 || 
       selectedTags.some(tag => tool.tags.includes(tag));
-    return matchesCategory && matchesSearch && matchesTags;
+    const matchesPrices = selectedPrices.length === 0 || 
+      (tool.price && selectedPrices.includes(tool.price));
+    return matchesCategory && matchesSearch && matchesTags && matchesPrices;
   });
 
   // Filtered suggestions for autocomplete
@@ -147,6 +156,22 @@ const AITools = () => {
     setCurrentPage(1);
   };
 
+  // Handle price selection
+  const handlePriceToggle = (price) => {
+    setSelectedPrices(prev => 
+      prev.includes(price) 
+        ? prev.filter(p => p !== price)
+        : [...prev, price]
+    );
+    setCurrentPage(1);
+  };
+
+  // Clear all selected prices
+  const clearAllPrices = () => {
+    setSelectedPrices([]);
+    setCurrentPage(1);
+  };
+
   // Handle category selection
   const handleCategorySelect = (categoryId) => {
     setActiveCategory(categoryId);
@@ -169,6 +194,9 @@ const AITools = () => {
       }
       if (tagDropdownRef.current && !tagDropdownRef.current.contains(event.target)) {
         setShowTagDropdown(false);
+      }
+      if (priceDropdownRef.current && !priceDropdownRef.current.contains(event.target)) {
+        setShowPriceDropdown(false);
       }
       if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target)) {
         setShowCategoryDropdown(false);
@@ -290,6 +318,66 @@ const AITools = () => {
                   </span>
                 ))}
                 <button className="clear-tags-btn" onClick={clearAllTags}>
+                  Clear All
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Filter Separator */}
+          <div className="filter-separator">|</div>
+
+          {/* Price Filter */}
+          <div className="price-filter-container" ref={priceDropdownRef}>
+            <button 
+              className={`price-dropdown-btn ${showPriceDropdown ? 'active' : ''}`}
+              onClick={() => setShowPriceDropdown(!showPriceDropdown)}
+            >
+              <svg className="price-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2V22M2 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Filter by Price
+              {selectedPrices.length > 0 && (
+                <span className="selected-count">{selectedPrices.length}</span>
+              )}
+              <svg className={`dropdown-arrow ${showPriceDropdown ? 'rotated' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+
+            {showPriceDropdown && (
+              <div className="price-dropdown">
+                <div className="price-dropdown-content">
+                  {allPrices.map(price => (
+                    <label key={price} className="price-option">
+                      <input
+                        type="checkbox"
+                        checked={selectedPrices.includes(price)}
+                        onChange={() => handlePriceToggle(price)}
+                        className="price-checkbox"
+                      />
+                      <span className="price-label">{price}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Selected Prices Display */}
+            {selectedPrices.length > 0 && (
+              <div className="selected-prices">
+                {selectedPrices.map(price => (
+                  <span key={price} className="selected-price">
+                    {price}
+                    <button 
+                      className="remove-price-btn"
+                      onClick={() => handlePriceToggle(price)}
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                <button className="clear-prices-btn" onClick={clearAllPrices}>
                   Clear All
                 </button>
               </div>
