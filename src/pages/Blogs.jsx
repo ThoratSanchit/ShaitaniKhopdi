@@ -145,7 +145,7 @@ const Blogs = () => {
                         onClick={() => {
                           setCategory(option.value);
                           setCurrentPage(1);
-                          setCategoryDropdownOpen(false);
+                          // setCategoryDropdownOpen(false); // Dropdown will not close on click
                         }}
                       >
                         {option.label}
