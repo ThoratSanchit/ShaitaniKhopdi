@@ -2,12 +2,11 @@ const aiTools = [
   {
     "id": 1,
     "name": "Kimi K2",
-    "description": "Open-source Mixture-of-Experts model with 1T parameters, excelling in agentic tasks like coding, math, and tool orchestration.",
-    "tags": ["LLM", "Open-Source", "Coding"],
-    "category": "llm",
-    "icon": "🛠️",
-    "link": "https://kimi.com",
-    "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=60"
+    "description": "Next-generation reasoning model from Moonshot AI with 2 M-token context and advanced chain-of-thought.",
+    "tags": ["LLM", "Reasoning", "Long-Context", "Chinese", "English"],
+    "category": "foundation",
+    "icon": "🌙",
+    "link": "https://www.kimi.com/"
   },
   {
     "id": 2,
@@ -16,189 +15,350 @@ const aiTools = [
     "tags": ["AI Agent", "Automation", "Enterprise"],
     "category": "productivity",
     "icon": "🤖",
-    "link": "https://www.hcompany.ai/api",
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=60"
+    "link": "https://www.hcompany.ai/"
   },
   {
     "id": 3,
     "name": "ComputerX",
-    "description": "Desktop AI agent that operates across applications, automating tasks locally.",
-    "tags": ["AI Agent", "Productivity", "Desktop"],
+    "description": "No-code agent builder that lets anyone create autonomous web & desktop bots via natural language.",
+    "tags": ["AI Agent", "No-Code", "RPA", "Desktop"],
     "category": "productivity",
     "icon": "🖥️",
-    "link": "https://computerx.ai/api",
-    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=60"
+    "link": "https://computerx.io/"
   },
   {
     "id": 4,
     "name": "Gemini 2.5 Flash-Lite",
-    "description": "Google's fastest and most cost-efficient model for real-time tasks, now generally available.",
-    "tags": ["LLM", "Multimodal", "Google"],
-    "category": "llm",
-    "icon": "⚡",
-    "link": "https://ai.google.dev",
-    "image": "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?auto=format&fit=crop&w=800&q=60"
+    "description": "Google’s fastest lightweight multimodal model optimized for low-latency, high-throughput tasks.",
+    "tags": ["LLM", "Multimodal", "Fast", "Google"],
+    "category": "foundation",
+    "icon": "♊",
+    "link": "https://ai.google.dev/gemini"
   },
   {
     "id": 5,
     "name": "Imagen 4",
-    "description": "Google's advanced text-to-image model with improved text rendering and multimodal capabilities.",
-    "tags": ["Image Generation", "Creative"],
-    "category": "image",
-    "icon": "🎨",
-    "link": "https://firefly.adobe.com/api",
-    "image": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?auto=format&fit=crop&w=800&q=60"
+    "description": "Google’s latest text-to-image model with 2 K resolution, superior typography and watermarking.",
+    "tags": ["Image Gen", "Google", "Creative"],
+    "category": "creative",
+    "icon": "🖼️",
+    "link": "https://ai.google.dev/gemini/imagen"
   },
   {
     "id": 6,
     "name": "AWS Agentic AI",
-    "description": "Amazon's enterprise automation suite for multi-step business processes with minimal human input.",
-    "tags": ["AI Agent", "Enterprise", "Automation"],
+    "description": "Managed service for deploying autonomous agents that integrate with 200+ AWS services.",
+    "tags": ["AI Agent", "Cloud", "Enterprise", "AWS"],
     "category": "productivity",
-    "icon": "🔗",
-    "link": "https://aws.amazon.com/agentic-ai",
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=60"
+    "icon": "☁️",
+    "link": "https://aws.amazon.com/q/agentic-ai/"
   },
   {
     "id": 7,
     "name": "Lloyds Bank Athena",
-    "description": "Generative AI assistant for financial services, automating customer support and compliance tasks.",
-    "tags": ["Finance", "Productivity"],
-    "category": "productivity",
+    "description": "Internal risk & fraud-detection AI used across Lloyds Banking Group for real-time transaction monitoring.",
+    "tags": ["Finance", "Fraud-Detection", "Enterprise"],
+    "category": "vertical",
     "icon": "🏦",
-    "link": "https://www.lloydsbank.com/athena",
-    "image": "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?auto=format&fit=crop&w=800&q=60"
+    "link": "https://www.lloydsbankinggroup.com/"
   },
   {
     "id": 8,
     "name": "Microsoft Copilot Vision",
-    "description": "AI that scans your desktop to detect tasks and automate workflows visually.",
-    "tags": ["Productivity", "Windows"],
+    "description": "Multimodal assistant that sees your screen and offers contextual help in Windows 11.",
+    "tags": ["Multimodal", "Desktop", "Windows", "Microsoft"],
     "category": "productivity",
     "icon": "👁️",
-    "link": "https://www.microsoft.com/copilot",
-    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=60"
+    "link": "https://support.microsoft.com/copilot-vision"
   },
   {
     "id": 9,
     "name": "Thinking Machines",
-    "description": "Mira Murati's $10B-valued startup focused on autonomous agentic AI for enterprise decision-making.",
-    "tags": ["AI Agents", "Enterprise"],
-    "category": "productivity",
+    "description": "Open-source research lab creating interpretable and steerable foundation models.",
+    "tags": ["Research", "Open-Source", "Interpretability"],
+    "category": "research",
     "icon": "🧠",
-    "link": "https://thinkingmachines.ai",
-    "image": "https://images.unsplash.com/photo-1620712943543-b0712943543?auto=format&fit=crop&w=800&q=60"
+    "link": "https://thinkingmachines.ai/"
   },
   {
     "id": 10,
     "name": "SoundHound Healthcare",
-    "description": "Voice AI assistant for clinics, handling patient intake and scheduling via natural language.",
-    "tags": ["Voice", "Healthcare"],
-    "category": "audio",
-    "icon": "🎙️",
-    "link": "https://www.soundhound.com/healthcare",
-    "image": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=60"
+    "description": "Voice-AI platform purpose-built for HIPAA-compliant clinical workflows and patient engagement.",
+    "tags": ["Healthcare", "Voice", "HIPAA", "Enterprise"],
+    "category": "vertical",
+    "icon": "🗣️",
+    "link": "https://www.soundhound.com/healthcare"
   },
   {
     "id": 11,
     "name": "Google Veo 3",
-    "description": "AI video generator with audio synthesis, ideal for creative storytelling and marketing.",
-    "tags": ["Video", "Creative"],
-    "category": "video",
+    "description": "State-of-the-art 8-sec 720p video generation with natively synchronized audio and lip-sync.",
+    "tags": ["Video Gen", "Audio", "Creative", "Google"],
+    "category": "creative",
     "icon": "🎬",
-    "link": "https://ai.google/veo",
-    "image": "https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=800&q=60"
+    "link": "https://ai.google.dev/gemini/veo"
   },
   {
     "id": 12,
     "name": "AlphaGenome",
-    "description": "Google's DNA sequence model for predicting regulatory variants, available for non-commercial research.",
-    "tags": ["Biotech", "Science"],
+    "description": "DeepMind’s unified genomic foundation model predicting variant impact on gene regulation.",
+    "tags": ["Genomics", "DeepMind", "Research"],
     "category": "research",
     "icon": "🧬",
-    "link": "https://alphagenome.google",
-    "image": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=60"
+    "link": "https://deepmind.google/discover/blog/alphagenome/"
   },
   {
     "id": 13,
     "name": "Delta Airlines AI",
-    "description": "Optimizes flight routes, baggage handling, and passenger experiences using real-time AI.",
-    "tags": ["Logistics", "Travel"],
-    "category": "productivity",
+    "description": "Operational AI suite for predictive maintenance, crew scheduling and dynamic pricing at Delta.",
+    "tags": ["Aviation", "Operations", "Enterprise"],
+    "category": "vertical",
     "icon": "✈️",
-    "link": "https://www.delta.com/ai",
-    "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=60"
+    "link": "https://news.delta.com/ai-innovation"
   },
   {
     "id": 14,
     "name": "Bloomberg Government AI",
-    "description": "Converts federal budget documents into actionable data for faster decision-making.",
-    "tags": ["Government", "Data"],
-    "category": "research",
-    "icon": "📊",
-    "link": "https://www.bloomberggovernment.com/ai",
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=60"
+    "description": "Legislative analytics platform that transforms bills, hearings and filings into actionable insights.",
+    "tags": ["Government", "Legal", "Finance", "Enterprise"],
+    "category": "vertical",
+    "icon": "🏛️",
+    "link": "https://www.bloomberg.com/government"
   },
   {
     "id": 15,
     "name": "Singapore Materials AI",
-    "description": "Accelerates discovery of sustainable materials using AI simulations.",
-    "tags": ["Science", "Sustainability"],
+    "description": "National program leveraging AI to design next-gen sustainable materials and battery chemistries.",
+    "tags": ["Materials", "Sustainability", "Research"],
     "category": "research",
-    "icon": "🔬",
-    "link": "https://www.a-star.edu.sg/materials-ai",
-    "image": "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=800&q=60"
+    "icon": "🔋",
+    "link": "https://www.aisingapore.org/materials-ai"
   },
   {
     "id": 16,
     "name": "Pentagon Military AI",
-    "description": "Partners with tech firms to enhance battlefield logistics and threat analysis.",
-    "tags": ["Defense", "AI Agents"],
-    "category": "research",
-    "icon": "🛡️",
-    "link": "https://www.defense.gov/ai",
-    "image": "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=800&q=60"
+    "description": "Classified portfolio of DoD AI programs including Project Maven and autonomous drone swarms.",
+    "tags": ["Defense", "Security", "Government"],
+    "category": "vertical",
+    "icon": "🎖️",
+    "link": "https://www.defense.gov/ai/"
   },
   {
     "id": 17,
     "name": "GPT-4.5",
-    "description": "OpenAI's latest multimodal model with improved reasoning and emotional intelligence.",
-    "tags": ["LLM", "Multimodal"],
-    "category": "llm",
+    "description": "OpenAI’s latest GPT-series model with enhanced reasoning, multimodal understanding and lower cost.",
+    "tags": ["LLM", "Multimodal", "OpenAI"],
+    "category": "foundation",
     "icon": "🤖",
-    "link": "https://openai.com/gpt-4.5",
-    "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=60"
+    "link": "https://openai.com/index/gpt-4-5/"
   },
   {
     "id": 18,
     "name": "Claude 3.7 Sonnet",
-    "description": "Anthropic's coding-optimized LLM with extended thinking mode for complex tasks.",
-    "tags": ["LLM", "Coding"],
-    "category": "code",
-    "icon": "🧮",
-    "link": "https://claude.ai",
-    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=60"
+    "description": "Anthropic’s most capable public model, featuring hybrid reasoning and a 200 K-token context window.",
+    "tags": ["LLM", "Reasoning", "Anthropic"],
+    "category": "foundation",
+    "icon": "🟢",
+    "link": "https://claude.ai/"
   },
   {
     "id": 19,
     "name": "Grok 3",
-    "description": "xAI's uncensored model with advanced reasoning and real-time X (Twitter) integration.",
-    "tags": ["LLM", "Social"],
-    "category": "llm",
-    "icon": "🦊",
-    "link": "https://grok.x.ai",
-    "image": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=60"
+    "description": "xAI’s reasoning-first model with real-time 𝕏 data access and 128 K-token context.",
+    "tags": ["LLM", "Reasoning", "Real-Time", "xAI"],
+    "category": "foundation",
+    "icon": "🪓",
+    "link": "https://grok.x.ai/"
   },
   {
     "id": 20,
     "name": "Stable Diffusion 3.5",
-    "description": "Open-source image generator with enhanced quality for UI mockups and technical illustrations.",
-    "tags": ["Image Generation", "Open-Source"],
-    "category": "image",
+    "description": "Stability AI’s open-weights image model delivering photorealism and typography in one forward pass.",
+    "tags": ["Image Gen", "Open-Source", "Creative"],
+    "category": "creative",
     "icon": "🎨",
-    "link": "https://stablediffusion.com",
-    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=60"
+    "link": "https://stability.ai/stable-diffusion-3-5"
+  },
+  {
+    "id": 21,
+    "name": "Gemini 2.5 Pro",
+    "description": "Google’s flagship reasoning model with 1 M-token context and best-in-class multimodal performance.",
+    "tags": ["LLM", "Reasoning", "Multimodal", "Google"],
+    "category": "foundation",
+    "icon": "♊",
+    "link": "https://ai.google.dev/gemini"
+  },
+  {
+    "id": 22,
+    "name": "DeepSeek R1",
+    "description": "Open-weights reasoning model rivaling GPT-4.5 at 1/10th the cost; supports 128 K context.",
+    "tags": ["LLM", "Reasoning", "Open-Source", "Chinese"],
+    "category": "foundation",
+    "icon": "🔍",
+    "link": "https://www.deepseek.com/"
+  },
+  {
+    "id": 23,
+    "name": "Llama 4 405B",
+    "description": "Meta’s largest open-source LLM with native multimodal capabilities and 128 K-token context.",
+    "tags": ["LLM", "Multimodal", "Open-Source", "Meta"],
+    "category": "foundation",
+    "icon": "🦙",
+    "link": "https://llama.meta.com/llama4"
+  },
+  {
+    "id": 24,
+    "name": "Mistral Large 2",
+    "description": "French 123 B-parameter powerhouse excelling at code, math and multilingual tasks.",
+    "tags": ["LLM", "Code", "Multilingual", "French"],
+    "category": "foundation",
+    "icon": "🌬️",
+    "link": "https://mistral.ai/news/mistral-large-2"
+  },
+  {
+    "id": 25,
+    "name": "Qwen 3 235B",
+    "description": "Alibaba’s bilingual flagship with state-of-the-art reasoning and 128 K-token support.",
+    "tags": ["LLM", "Bilingual", "Open-Source", "Alibaba"],
+    "category": "foundation",
+    "icon": "🐉",
+    "link": "https://qwenlm.github.io/blog/qwen3"
+  },
+  {
+    "id": 26,
+    "name": "Claude 4 Opus",
+    "description": "Anthropic’s upcoming top-tier model; early API partners report 72.7 % SWE-bench coding scores.",
+    "tags": ["LLM", "Coding", "Anthropic"],
+    "category": "foundation",
+    "icon": "🟢",
+    "link": "https://anthropic.com/news/claude-4-family"
+  },
+  {
+    "id": 27,
+    "name": "OpenAI o3",
+    "description": "Specialized reasoning model released April 2025; 200 K context, 69 % SWE-bench agentic coding.",
+    "tags": ["LLM", "Reasoning", "OpenAI"],
+    "category": "foundation",
+    "icon": "🤖",
+    "link": "https://openai.com/index/introducing-o3"
+  },
+  {
+    "id": 28,
+    "name": "DALL·E 3",
+    "description": "OpenAI’s flagship image generator integrated into ChatGPT Plus and the API.",
+    "tags": ["Image Gen", "OpenAI", "Creative"],
+    "category": "creative",
+    "icon": "🎨",
+    "link": "https://openai.com/dall-e-3"
+  },
+  {
+    "id": 29,
+    "name": "Sora Turbo",
+    "description": "OpenAI’s 20-second 1080p video generator available to Plus/Pro users.",
+    "tags": ["Video Gen", "OpenAI", "Creative"],
+    "category": "creative",
+    "icon": "🎥",
+    "link": "https://openai.com/sora"
+  },
+  {
+    "id": 30,
+    "name": "Midjourney v7",
+    "description": "Independent research lab’s ultra-realistic image model with style-reference and character consistency.",
+    "tags": ["Image Gen", "Independent", "Creative"],
+    "category": "creative",
+    "icon": "🌌",
+    "link": "https://www.midjourney.com/"
+  },
+  {
+    "id": 31,
+    "name": "Flux 1.1 Pro",
+    "description": "Black Forest Labs’ open-weights model delivering SOTA prompt adherence and typography.",
+    "tags": ["Image Gen", "Open-Source", "Creative"],
+    "category": "creative",
+    "icon": "⚡",
+    "link": "https://blackforestlabs.ai/flux-1-1-pro"
+  },
+  {
+    "id": 32,
+    "name": "Runway Gen-3 Alpha Turbo",
+    "description": "10-second 720p video generator with fine-grained camera and motion controls.",
+    "tags": ["Video Gen", "Creative", "Runway"],
+    "category": "creative",
+    "icon": "🛤️",
+    "link": "https://runwayml.com/gen3"
+  },
+  {
+    "id": 33,
+    "name": "ElevenLabs Voice AI",
+    "description": "Production-grade text-to-speech, voice cloning and dubbing in 32 languages.",
+    "tags": ["Voice", "Multilingual", "Creative"],
+    "category": "creative",
+    "icon": "🔊",
+    "link": "https://elevenlabs.io"
+  },
+  {
+    "id": 34,
+    "name": "Cohere Command R+",
+    "description": "128 K-context retrieval-augmented LLM optimized for enterprise RAG and tool use.",
+    "tags": ["LLM", "RAG", "Enterprise", "Cohere"],
+    "category": "productivity",
+    "icon": "📚",
+    "link": "https://cohere.com/command-r-plus"
+  },
+  {
+    "id": 35,
+    "name": "Perplexity Sonar",
+    "description": "Real-time web-search LLM with citations and up-to-date knowledge.",
+    "tags": ["LLM", "Search", "Real-Time", "Perplexity"],
+    "category": "productivity",
+    "icon": "🔍",
+    "link": "https://www.perplexity.ai"
+  },
+  {
+    "id": 36,
+    "name": "AutoGPT Agent",
+    "description": "Open-source framework for spinning up fully autonomous goal-driven agents.",
+    "tags": ["AI Agent", "Open-Source", "Framework"],
+    "category": "productivity",
+    "icon": "🤖",
+    "link": "https://agpt.co"
+  },
+  {
+    "id": 37,
+    "name": "Hugging Face Transformers",
+    "description": "Library & hub hosting 500 k+ open-source models and datasets.",
+    "tags": ["Hub", "Open-Source", "Community"],
+    "category": "research",
+    "icon": "🤗",
+    "link": "https://huggingface.co"
+  },
+  {
+    "id": 38,
+    "name": "OpenRouter",
+    "description": "Universal gateway that unifies 200+ LLMs behind a single API key.",
+    "tags": ["Gateway", "Multi-Provider", "API"],
+    "category": "productivity",
+    "icon": "🔄",
+    "link": "https://openrouter.ai"
+  },
+  {
+    "id": 39,
+    "name": "LangChain",
+    "description": "Framework for building context-aware reasoning applications with LLMs.",
+    "tags": ["Framework", "Open-Source", "Chain-of-Thought"],
+    "category": "productivity",
+    "icon": "⛓️",
+    "link": "https://langchain.com"
+  },
+  {
+    "id": 40,
+    "name": "LangGraph",
+    "description": "Library for creating cyclic, stateful multi-agent workflows on top of LangChain.",
+    "tags": ["AI Agent", "Workflow", "Open-Source"],
+    "category": "productivity",
+    "icon": "🕸️",
+    "link": "https://langchain-ai.github.io/langgraph"
   }
-];
+]
 
 export default aiTools;
