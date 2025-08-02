@@ -4,7 +4,7 @@ import aiTools from '../data/aiTools';
 import './AITools.css';
 
 const AITools = () => {
-  // Categories for filtering - updated to match the new data structure
+  // Categories for filtering
   const categories = [
     { id: 'all', name: 'All', count: aiTools.length },
     { id: 'Foundation', name: 'Foundation Models', count: aiTools.filter(tool => tool.category === 'Foundation').length },
@@ -17,31 +17,29 @@ const AITools = () => {
     { id: 'Government', name: 'Government', count: aiTools.filter(tool => tool.category === 'Government').length }
   ];
 
-  // Extract all unique tags from AI tools
+  // Extract all unique tags and prices
   const allTags = [...new Set(aiTools.flatMap(tool => tool.tags))].sort();
-
-  // Extract all unique prices from AI tools
   const allPrices = [...new Set(aiTools.map(tool => tool.price).filter(Boolean))].sort();
 
-  // Pagination state
+  // State management
   const [currentPage, setCurrentPage] = useState(1);
-  const [toolsPerPage] = useState(8); // Tools per page
+  const [toolsPerPage] = useState(9);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchInput, setSearchInput] = useState('');
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedPrices, setSelectedPrices] = useState([]);
-  const [showTagDropdown, setShowTagDropdown] = useState(false);
-  const [showPriceDropdown, setShowPriceDropdown] = useState(false);
-  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
-  const suggestionsRef = useRef(null);
-  const tagDropdownRef = useRef(null);
-  const priceDropdownRef = useRef(null);
-  const categoryDropdownRef = useRef(null);
+  
+  // Separate filter dropdown states
+  const [showCategoryFilter, setShowCategoryFilter] = useState(false);
+  const [showTagFilter, setShowTagFilter] = useState(false);
+  const [showPriceFilter, setShowPriceFilter] = useState(false);
 
-  // Filtered tools by category, search query, selected tags, and selected prices
+  // Refs for click outside handling
+  const categoryFilterRef = useRef(null);
+  const tagFilterRef = useRef(null);
+  const priceFilterRef = useRef(null);
+
+  // Filtered tools
   const filteredTools = aiTools.filter(tool => {
     const matchesCategory = activeCategory === 'all' || tool.category === activeCategory;
     const matchesSearch = searchQuery.trim() === '' ||
@@ -54,129 +52,45 @@ const AITools = () => {
     return matchesCategory && matchesSearch && matchesTags && matchesPrices;
   });
 
-  // Filtered suggestions for autocomplete
-  const suggestions = searchInput.trim() === '' ? [] :
-    aiTools.filter(tool =>
-      tool.name.toLowerCase().includes(searchInput.trim().toLowerCase()) ||
-      (tool.description && tool.description.toLowerCase().includes(searchInput.trim().toLowerCase()))
-    ).slice(0, 6);
-
-  // Get current tools
+  // Pagination
   const indexOfLastTool = currentPage * toolsPerPage;
   const indexOfFirstTool = indexOfLastTool - toolsPerPage;
   const currentTools = filteredTools.slice(indexOfFirstTool, indexOfLastTool);
   const totalPages = Math.ceil(filteredTools.length / toolsPerPage);
 
-  // Change page
+  // Helper functions
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
   const prevPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
 
-  // Helper function for windowed pagination
-  const getPaginationNumbers = (current, total) => {
-    const pages = [];
-    if (total <= 5) {
-      for (let i = 1; i <= total; i++) pages.push(i);
-    } else {
-      if (current <= 3) {
-        pages.push(1, 2, 3, '...', total);
-      } else if (current >= total - 2) {
-        pages.push(1, '...', total - 2, total - 1, total);
-      } else {
-        pages.push(1, '...', current - 1, current, current + 1, '...', total);
-      }
-    }
-    return pages;
+  // Calculate total active filters
+  const getActiveFiltersCount = () => {
+    let count = selectedTags.length + selectedPrices.length;
+    if (activeCategory !== 'all') count += 1;
+    if (searchQuery.trim() !== '') count += 1;
+    return count;
   };
 
-  // Handle search input change
-  const handleSearchInputChange = (e) => {
-    setSearchInput(e.target.value);
-    setShowSuggestions(e.target.value.trim() !== '');
-    setHighlightedIndex(-1);
-  };
-
-  // Handle search button click or Enter key
-  const handleSearch = (e) => {
-    if (e) e.preventDefault();
-    setSearchQuery(searchInput);
-    setCurrentPage(1);
-    setShowSuggestions(false);
-    setHighlightedIndex(-1);
-  };
-
-  // Handle Enter, ArrowUp, ArrowDown in search input
-  const handleSearchInputKeyDown = (e) => {
-    if (showSuggestions && suggestions.length > 0) {
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setHighlightedIndex(idx => (idx + 1) % suggestions.length);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setHighlightedIndex(idx => (idx - 1 + suggestions.length) % suggestions.length);
-      } else if (e.key === 'Enter') {
-        if (highlightedIndex >= 0) {
-          setSearchInput(suggestions[highlightedIndex].name);
-          setShowSuggestions(false);
-          setHighlightedIndex(-1);
-          setTimeout(() => handleSearch(), 0);
-        } else {
-          handleSearch(e);
-        }
-      } else if (e.key === 'Escape') {
-        setShowSuggestions(false);
-        setHighlightedIndex(-1);
-      }
-    } else if (e.key === 'Enter') {
-      handleSearch(e);
-    }
-  };
-
-  // Handle suggestion click
-  const handleSuggestionClick = (suggestion) => {
-    setSearchInput(suggestion.name);
-    setShowSuggestions(false);
-    setHighlightedIndex(-1);
-    setTimeout(() => handleSearch(), 0);
-  };
-
-  // Handle tag selection
   const handleTagToggle = (tag) => {
     setSelectedTags(prev => 
-      prev.includes(tag) 
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
     );
     setCurrentPage(1);
   };
 
-  // Clear all selected tags
-  const clearAllTags = () => {
-    setSelectedTags([]);
-    setCurrentPage(1);
-  };
-
-  // Handle price selection
   const handlePriceToggle = (price) => {
     setSelectedPrices(prev => 
-      prev.includes(price) 
-        ? prev.filter(p => p !== price)
-        : [...prev, price]
+      prev.includes(price) ? prev.filter(p => p !== price) : [...prev, price]
     );
     setCurrentPage(1);
   };
 
-  // Clear all selected prices
-  const clearAllPrices = () => {
+  const clearAllFilters = () => {
+    setSelectedTags([]);
     setSelectedPrices([]);
+    setSearchQuery('');
+    setActiveCategory('all');
     setCurrentPage(1);
-  };
-
-  // Handle category selection
-  const handleCategorySelect = (categoryId) => {
-    setActiveCategory(categoryId);
-    setCurrentPage(1);
-    setShowCategoryDropdown(false);
   };
 
   // Get current category name
@@ -185,21 +99,17 @@ const AITools = () => {
     return category ? category.name : 'All';
   };
 
-  // Hide suggestions when clicking outside
+  // Click outside handlers
   React.useEffect(() => {
     const handleClickOutside = (event) => {
-      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
-        setShowSuggestions(false);
-        setHighlightedIndex(-1);
+      if (categoryFilterRef.current && !categoryFilterRef.current.contains(event.target)) {
+        setShowCategoryFilter(false);
       }
-      if (tagDropdownRef.current && !tagDropdownRef.current.contains(event.target)) {
-        setShowTagDropdown(false);
+      if (tagFilterRef.current && !tagFilterRef.current.contains(event.target)) {
+        setShowTagFilter(false);
       }
-      if (priceDropdownRef.current && !priceDropdownRef.current.contains(event.target)) {
-        setShowPriceDropdown(false);
-      }
-      if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target)) {
-        setShowCategoryDropdown(false);
+      if (priceFilterRef.current && !priceFilterRef.current.contains(event.target)) {
+        setShowPriceFilter(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -208,266 +118,223 @@ const AITools = () => {
 
   return (
     <div className="ai-tools-page">
-      <div className="ai-tools-hero">
+      {/* Hero Section */}
+      <div className="hero-section">
         <div className="hero-content">
-          <h1>Discover <span className="highlight">AI Tools</span></h1>
-          <p>Explore our curated collection of cutting-edge AI tools.</p>
+          <h1 className="hero-title">
+            Discover <span className="gradient-text">AI Tools</span>
+          </h1>
+          <p className="hero-subtitle">
+            Explore our curated collection of cutting-edge AI tools and discover the future of technology.
+          </p>
         </div>
       </div>
-      
-      <div className="filter-section">
-        {/* Unified Search and Filter Controls */}
-        <div className="unified-controls">
-          {/* Search Bar */}
-          <div className="search-container" ref={suggestionsRef}>
-            <form className="search-bar" onSubmit={handleSearch} autoComplete="off">
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M21 21L16.65 16.65" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <input 
-                type="text" 
-                placeholder="Search AI tools..." 
-                className="search-input"
-                value={searchInput}
-                onChange={handleSearchInputChange}
-                onKeyDown={handleSearchInputKeyDown}
-                autoComplete="off"
-                aria-autocomplete="list"
-                aria-controls="ai-tools-suggestions"
-                aria-activedescendant={highlightedIndex >= 0 ? `suggestion-${highlightedIndex}` : undefined}
-              />
-              {/* Suggestions dropdown */}
-              {showSuggestions && suggestions.length > 0 && (
-                <ul className="search-suggestions" id="ai-tools-suggestions" role="listbox">
-                  {suggestions.map((tool, idx) => (
-                    <li
-                      key={tool.id}
-                      id={`suggestion-${idx}`}
-                      className={`suggestion-item${highlightedIndex === idx ? ' highlighted' : ''}`}
-                      onMouseDown={() => handleSuggestionClick(tool)}
-                      role="option"
-                      aria-selected={highlightedIndex === idx}
-                    >
-                      {tool.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </form>
-            <button className="search-btn" onClick={handleSearch}>
-              <svg className="search-btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Search
-            </button>
+
+      {/* Search and Filter Bar */}
+      <div className="search-filter-bar">
+        <div className="search-container">
+          <div className="search-input-wrapper">
+            <svg className="search-icon" viewBox="0 0 24 24" fill="none">
+              <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <input
+              type="text"
+              placeholder="Search AI tools..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
           </div>
+        </div>
 
-          {/* Filter Separator */}
-          <div className="filter-separator">|</div>
-
-          {/* Tag Filter */}
-          <div className="tag-filter-container" ref={tagDropdownRef}>
+        <div className="filter-buttons">
+          {/* Category Filter Button */}
+          <div className="filter-button-container" ref={categoryFilterRef}>
             <button 
-              className={`tag-dropdown-btn ${showTagDropdown ? 'active' : ''}`}
-              onClick={() => setShowTagDropdown(!showTagDropdown)}
+              className={`filter-button ${activeCategory !== 'all' ? 'active' : ''}`}
+              onClick={() => setShowCategoryFilter(!showCategoryFilter)}
             >
-              <svg className="tag-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 7H.01V7H7zM7 12H.01V12H7zM7 17H.01V17H7zM9 7H23V9H9V7zM9 12H23V14H9V12zM9 17H23V19H9V17z" fill="currentColor"/>
-              </svg>
-              Filter by Tags
-              {selectedTags.length > 0 && (
-                <span className="selected-count">{selectedTags.length}</span>
-              )}
-              <svg className={`dropdown-arrow ${showTagDropdown ? 'rotated' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-
-            {showTagDropdown && (
-              <div className="tag-dropdown">
-                <div className="tag-dropdown-content">
-                  {allTags.map(tag => (
-                    <label key={tag} className="tag-option">
-                      <input
-                        type="checkbox"
-                        checked={selectedTags.includes(tag)}
-                        onChange={() => handleTagToggle(tag)}
-                        className="tag-checkbox"
-                      />
-                      <span className="tag-label">{tag}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Selected Tags Display */}
-            {selectedTags.length > 0 && (
-              <div className="selected-tags">
-                {selectedTags.map(tag => (
-                  <span key={tag} className="selected-tag">
-                    {tag}
-                    <button 
-                      className="remove-tag-btn"
-                      onClick={() => handleTagToggle(tag)}
-                    >
-                      ×
-                    </button>
-                  </span>
-                ))}
-                <button className="clear-tags-btn" onClick={clearAllTags}>
-                  Clear All
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Filter Separator */}
-          <div className="filter-separator">|</div>
-
-          {/* Price Filter */}
-          <div className="price-filter-container" ref={priceDropdownRef}>
-            <button 
-              className={`price-dropdown-btn ${showPriceDropdown ? 'active' : ''}`}
-              onClick={() => setShowPriceDropdown(!showPriceDropdown)}
-            >
-              <svg className="price-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2V22M2 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Filter by Price
-              {selectedPrices.length > 0 && (
-                <span className="selected-count">{selectedPrices.length}</span>
-              )}
-              <svg className={`dropdown-arrow ${showPriceDropdown ? 'rotated' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-
-            {showPriceDropdown && (
-              <div className="price-dropdown">
-                <div className="price-dropdown-content">
-                  {allPrices.map(price => (
-                    <label key={price} className="price-option">
-                      <input
-                        type="checkbox"
-                        checked={selectedPrices.includes(price)}
-                        onChange={() => handlePriceToggle(price)}
-                        className="price-checkbox"
-                      />
-                      <span className="price-label">{price}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Selected Prices Display */}
-            {selectedPrices.length > 0 && (
-              <div className="selected-prices">
-                {selectedPrices.map(price => (
-                  <span key={price} className="selected-price">
-                    {price}
-                    <button 
-                      className="remove-price-btn"
-                      onClick={() => handlePriceToggle(price)}
-                    >
-                      ×
-                    </button>
-                  </span>
-                ))}
-                <button className="clear-prices-btn" onClick={clearAllPrices}>
-                  Clear All
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Filter Separator */}
-          <div className="filter-separator">|</div>
-
-          {/* Category Filter */}
-          <div className="category-filter-container" ref={categoryDropdownRef}>
-            <button 
-              className={`category-dropdown-btn ${showCategoryDropdown ? 'active' : ''}`}
-              onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
-            >
-              <svg className="category-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="filter-button-icon" viewBox="0 0 24 24" fill="none">
                 <path d="M3 3H21V5H3V3ZM3 7H21V9H3V7ZM3 11H21V13H3V11ZM3 15H21V17H3V15ZM3 19H21V21H3V19Z" fill="currentColor"/>
               </svg>
               {getCurrentCategoryName()}
-              <svg className={`dropdown-arrow ${showCategoryDropdown ? 'rotated' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              {activeCategory !== 'all' && (
+                <span className="filter-button-badge">1</span>
+              )}
             </button>
 
-            {showCategoryDropdown && (
-              <div className="category-dropdown">
-                <div className="category-dropdown-content">
+            {showCategoryFilter && (
+              <div className="filter-dropdown">
+                <div className="filter-dropdown-content">
                   {categories.map(category => (
                     <button
                       key={category.id}
-                      className={`category-option ${activeCategory === category.id ? 'active' : ''}`}
-                      onClick={() => handleCategorySelect(category.id)}
+                      className={`filter-option ${activeCategory === category.id ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveCategory(category.id);
+                        setCurrentPage(1);
+                        setShowCategoryFilter(false);
+                      }}
                     >
-                      <span className="category-name">{category.name}</span>
-                      <span className="category-count">{category.count}</span>
+                      <span className="filter-option-name">{category.name}</span>
+                      <span className="filter-option-count">{category.count}</span>
                     </button>
                   ))}
                 </div>
               </div>
             )}
           </div>
+
+          {/* Tags Filter Button */}
+          <div className="filter-button-container" ref={tagFilterRef}>
+            <button 
+              className={`filter-button ${selectedTags.length > 0 ? 'active' : ''}`}
+              onClick={() => setShowTagFilter(!showTagFilter)}
+            >
+              <svg className="filter-button-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M20.59 13.41L13.42 20.58C13.2343 20.766 13.0137 20.9135 12.7709 21.0141C12.5281 21.1148 12.2678 21.1666 12.005 21.1666C11.7422 21.1666 11.4819 21.1148 11.2391 21.0141C10.9963 20.9135 10.7757 20.766 10.59 20.58L2 12V2H12L20.59 10.59C20.9625 10.9647 21.1716 11.4716 21.1716 12C21.1716 12.5284 20.9625 13.0353 20.59 13.41Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Tags
+              {selectedTags.length > 0 && (
+                <span className="filter-button-badge">{selectedTags.length}</span>
+              )}
+            </button>
+
+            {showTagFilter && (
+              <div className="filter-dropdown">
+                <div className="filter-dropdown-content">
+                  {allTags.map(tag => (
+                    <button
+                      key={tag}
+                      className={`filter-option ${selectedTags.includes(tag) ? 'active' : ''}`}
+                      onClick={() => handleTagToggle(tag)}
+                    >
+                      <span className="filter-option-name">{tag}</span>
+                      {selectedTags.includes(tag) && (
+                        <svg className="filter-option-check" viewBox="0 0 24 24" fill="none">
+                          <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Price Filter Button */}
+          <div className="filter-button-container" ref={priceFilterRef}>
+            <button 
+              className={`filter-button ${selectedPrices.length > 0 ? 'active' : ''}`}
+              onClick={() => setShowPriceFilter(!showPriceFilter)}
+            >
+              <svg className="filter-button-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2V22M2 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Pricing
+              {selectedPrices.length > 0 && (
+                <span className="filter-button-badge">{selectedPrices.length}</span>
+              )}
+            </button>
+
+            {showPriceFilter && (
+              <div className="filter-dropdown">
+                <div className="filter-dropdown-content">
+                  {allPrices.map(price => (
+                    <button
+                      key={price}
+                      className={`filter-option ${selectedPrices.includes(price) ? 'active' : ''}`}
+                      onClick={() => handlePriceToggle(price)}
+                    >
+                      <span className="filter-option-name">{price}</span>
+                      {selectedPrices.includes(price) && (
+                        <svg className="filter-option-check" viewBox="0 0 24 24" fill="none">
+                          <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Clear All Filters Button */}
+          {getActiveFiltersCount() > 0 && (
+            <button className="clear-all-filters-btn" onClick={clearAllFilters}>
+              <svg className="clear-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Clear All
+            </button>
+          )}
         </div>
       </div>
-      
+
+      {/* Results Summary */}
+      <div className="results-summary">
+        <p className="results-text">
+          Showing {currentTools.length} of {filteredTools.length} tools
+          {filteredTools.length !== aiTools.length && (
+            <span className="filtered-indicator"> (filtered)</span>
+          )}
+        </p>
+      </div>
+
+      {/* Tools Grid */}
       <div className="tools-grid">
         {currentTools.map(tool => (
           <AIToolCard key={tool.id} tool={tool} />
         ))}
       </div>
-      
+
+      {/* Empty State */}
+      {currentTools.length === 0 && (
+        <div className="empty-state">
+          <div className="empty-icon">🔍</div>
+          <h3 className="empty-title">No tools found</h3>
+          <p className="empty-description">
+            Try adjusting your search or filters to find what you're looking for.
+          </p>
+          <button className="reset-filters-btn" onClick={clearAllFilters}>
+            Reset Filters
+          </button>
+        </div>
+      )}
+
+      {/* Pagination */}
       {filteredTools.length > toolsPerPage && (
-        <div className="pagination-container">
+        <div className="pagination">
           <button 
-            className={`pagination-btn prev-next ${currentPage === 1 ? 'disabled' : ''}`} 
+            className={`pagination-btn ${currentPage === 1 ? 'disabled' : ''}`}
             onClick={prevPage}
             disabled={currentPage === 1}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none">
               <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             Previous
           </button>
-          
+
           <div className="page-numbers">
-            {getPaginationNumbers(currentPage, totalPages).map((number, idx, arr) => {
-              if (number === '...') {
-                return (
-                  <span key={`ellipsis-${idx}`} className="ellipsis">...</span>
-                );
-              }
-              return (
-                <button
-                  key={number}
-                  className={`page-btn ${currentPage === number ? 'active' : ''}`}
-                  onClick={() => paginate(number)}
-                  disabled={currentPage === number}
-                >
-                  {number}
-                </button>
-              );
-            })}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+              <button
+                key={number}
+                className={`page-number ${currentPage === number ? 'active' : ''}`}
+                onClick={() => paginate(number)}
+              >
+                {number}
+              </button>
+            ))}
           </div>
-          
+
           <button 
-            className={`pagination-btn prev-next ${currentPage === totalPages ? 'disabled' : ''}`} 
+            className={`pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`}
             onClick={nextPage}
             disabled={currentPage === totalPages}
           >
             Next
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none">
               <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
