@@ -1,192 +1,320 @@
-.contest-card {
-  background-color: #1a1a1a;
-  border-radius: 10px;
-  padding: 20px;
+/* Clean Minimalist Card Styles - Dark Theme */
+.clean-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
   transition: all 0.3s ease;
-  border: 1px solid #333;
+  height: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
 }
 
-.contest-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 255, 153, 0.2);
-  border-color: #00ff99;
+.clean-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 255, 153, 0.15);
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 153, 0.2);
 }
 
-.contest-header {
+/* Green accent line */
+.accent-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #00ff99, #00cc66);
+}
+
+/* Card content */
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Card header */
+.card-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 }
 
-.contest-header h3 {
-  margin: 0;
-  color: #00ff99;
-}
-
-.prize {
-  background-color: #333;
-  color: #ffcc00;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.description {
-  color: #bbb;
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-}
-
-.contest-meta {
-  display: flex;
-  gap: 15px;
-  color: #777;
-  font-size: 0.8rem;
-  margin-bottom: 20px;
-}
-
-.countdown {
-  background-color: #222;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.timer {
-  color: #e0e0e0;
-  font-size: 0.9rem;
-}
-
-.time {
-  color: #00ff99;
-  font-weight: bold;
-}
-
-.contest-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.register-btn {
-  flex: 2;
-  padding: 8px;
-}
-
-.outline-btn {
-  flex: 1;
-  padding: 8px;
-  background-color: transparent;
-  border: 1px solid #00ff99;
-  color: #00ff99;
-}
-
-.outline-btn:hover {
-  background-color: rgba(0, 255, 153, 0.1);
-}
-
-/* Professional Contest Card Styles */
-.contest-card.pro {
-  background: linear-gradient(135deg, #181c20 60%, #23272f 100%);
-  border-radius: 16px;
-  padding: 28px 24px 22px 24px;
-  box-shadow: 0 6px 32px 0 rgba(0,255,153,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.10);
-  border: 1.5px solid #222e2b;
-  transition: box-shadow 0.3s, border-color 0.3s, transform 0.2s;
-  margin-bottom: 18px;
-}
-.contest-card.pro:hover {
-  box-shadow: 0 10px 40px 0 rgba(0,255,153,0.18), 0 2px 12px 0 rgba(0,0,0,0.13);
-  border-color: #00ff99;
-  transform: translateY(-4px) scale(1.012);
-}
-.contest-title-pro {
-  color: #00ff99;
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin: 0;
-  letter-spacing: 0.01em;
-}
-.prize-pro {
-  background: #23272f;
-  color: #ffcc00;
-  padding: 7px 16px;
-  border-radius: 8px;
+.tool-title {
+  font-size: 1.25rem;
   font-weight: 600;
-  font-size: 1rem;
-  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.10);
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+  padding-right: 1rem;
 }
-.contest-meta-pro {
+
+/* Status badge */
+.pricing-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.pricing-badge.upcoming {
+  background: linear-gradient(135deg, #00ff99, #00cc66);
+  color: #0a0a0a;
+}
+
+.pricing-badge.live {
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  color: #ffffff;
+}
+
+.pricing-badge.past {
+  background: linear-gradient(135deg, #6c757d, #495057);
+  color: #ffffff;
+}
+
+/* Description */
+.tool-description {
+  color: #b8b8b8;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  flex: 1;
+}
+
+/* Metadata section */
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.meta-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #00ff99;
+  flex-shrink: 0;
+}
+
+.meta-text {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Tags section */
+.tags-section {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
-  color: #b0b8c1;
-  font-size: 0.97rem;
-  margin: 18px 0 18px 0;
-  font-weight: 500;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
-.date-pro, .duration-pro, .type-pro, .location-pro {
-  background: #181c20;
-  padding: 4px 10px;
-  border-radius: 5px;
-  color: #7fffd4;
-  font-size: 0.93rem;
-}
-.countdown-pro {
-  background: #1e2228;
-  padding: 13px 0;
-  border-radius: 7px;
-  margin-bottom: 22px;
-  text-align: center;
-  border: 1px solid #23272f;
-}
-.timer-pro {
-  color: #e0e0e0;
-  font-size: 1.01rem;
-  font-weight: 500;
-}
-.time-pro {
-  color: #00ff99;
-  font-weight: 700;
-  font-size: 1.08rem;
-}
-.contest-actions-pro {
+
+.tag {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: 0.25rem;
+  background: linear-gradient(135deg, rgba(0, 255, 153, 0.1), rgba(0, 204, 255, 0.1));
+  color: #00ff99;
+  padding: 0.375rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(0, 255, 153, 0.2);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
 }
-.btn-pro.register-btn-pro {
-  background: linear-gradient(90deg, #00ff99 0%, #00cfff 100%);
-  color: #181c20;
-  font-weight: 700;
-  font-size: 1.08rem;
-  padding: 10px 32px;
+
+.tag:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 153, 0.2), rgba(0, 204, 255, 0.2));
+  border-color: rgba(0, 255, 153, 0.4);
+  transform: translateY(-1px);
+}
+
+.tag-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #00ff99;
+  flex-shrink: 0;
+}
+
+/* Special tag styles */
+.prize-tag {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 193, 7, 0.1));
+  color: #ffd700;
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.prize-tag:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 193, 7, 0.2));
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.prize-tag .tag-icon {
+  color: #ffd700;
+}
+
+.countdown-tag {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 71, 87, 0.1));
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.countdown-tag:hover {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 71, 87, 0.2));
+  border-color: rgba(255, 107, 107, 0.5);
+}
+
+.countdown-tag .tag-icon {
+  color: #ff6b6b;
+}
+
+.type-tag {
+  background: linear-gradient(135deg, rgba(156, 136, 255, 0.1), rgba(140, 122, 230, 0.1));
+  color: #9c88ff;
+  border-color: rgba(156, 136, 255, 0.3);
+}
+
+.type-tag:hover {
+  background: linear-gradient(135deg, rgba(156, 136, 255, 0.2), rgba(140, 122, 230, 0.2));
+  border-color: rgba(156, 136, 255, 0.5);
+}
+
+.type-tag .tag-icon {
+  color: #9c88ff;
+}
+
+/* Action button */
+.card-actions {
+  margin-top: auto;
+}
+
+.try-button {
+  width: 100%;
+  background: linear-gradient(135deg, #00ff99, #00cc66);
+  color: #0a0a0a;
   border: none;
-  border-radius: 7px;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px 0 rgba(0,255,153,0.10);
-  transition: background 0.2s, color 0.2s, transform 0.15s;
-  text-decoration: none;
-  outline: none;
-  margin-left: auto;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 255, 153, 0.3);
 }
-.btn-pro.register-btn-pro:hover {
-  background: linear-gradient(90deg, #00cfff 0%, #00ff99 100%);
-  color: #181c20;
-  transform: scale(1.045);
-  box-shadow: 0 4px 16px 0 rgba(0,255,153,0.18);
+
+.try-button:hover {
+  background: linear-gradient(135deg, #00cc66, #00ff99);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 153, 0.4);
 }
-@media (max-width: 600px) {
-  .contest-card.pro {
-    padding: 16px 8px 14px 8px;
+
+.try-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .clean-card {
+    min-height: 300px;
   }
-  .contest-meta-pro {
-    gap: 8px;
-    font-size: 0.89rem;
+  
+  .card-content {
+    padding: 1.25rem;
   }
-  .btn-pro.register-btn-pro {
-    font-size: 0.98rem;
-    padding: 8px 16px;
+  
+  .tool-title {
+    font-size: 1.125rem;
+  }
+  
+  .tool-description {
+    font-size: 0.8rem;
+  }
+  
+  .metadata {
+    gap: 0.4rem;
+  }
+  
+  .meta-text {
+    font-size: 0.7rem;
+  }
+  
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .try-button {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clean-card {
+    min-height: 280px;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .card-header {
+    margin-bottom: 0.875rem;
+  }
+  
+  .tool-title {
+    font-size: 1rem;
+    padding-right: 0.75rem;
+  }
+  
+  .tool-description {
+    font-size: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .metadata {
+    margin-bottom: 1.25rem;
+  }
+  
+  .tags-section {
+    gap: 0.375rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .tag-icon {
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+  
+  .try-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
   }
 }
